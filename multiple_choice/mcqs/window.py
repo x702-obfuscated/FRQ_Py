@@ -17,6 +17,7 @@ FONT_COLOR = "#d9d9d9"
 TITLE = "Python Quiz"
 HEIGHT = 400
 WIDTH = 800
+
 WINDOW_BG = "#242424"
 
 # Quiz Name Label
@@ -32,7 +33,7 @@ PROMPT_BG = "#d1c18a"
 BUTTON_BG = PROMPT_BG
 BUTTON_HIGHLIGHT = "#75f56e"
 
-MAX_WIDTH = window.winfo_screenwidth()/2
+MAX_WIDTH =  940 #window.winfo_screenwidth()/2
 MAX_CHARS = 86
 
 # Create the main application window
@@ -42,9 +43,13 @@ window.geometry(f"{WIDTH}x{HEIGHT}")
 window.minsize(500,500)
 window.configure(bg = WINDOW_BG)
 
-icon = tk.PhotoImage(file= IMGPATH / "python_logo.png")  
-window.iconphoto(False, icon)  
 
+# icon = tk.PhotoImage(file= IMGPATH / "python_logo.png")  
+# window.iconphoto(False, icon)  
+
+container = tk.Frame(window,bd=5, relief="raised", pady=5,width = MAX_WIDTH, height = 800, bg=WINDOW_BG)
+container.pack()
+container.pack_propagate(False)
 
 # Function to change the background color on hover
 def on_enter(event):
@@ -70,9 +75,9 @@ window.protocol("WM_DELETE_WINDOW", on_window_close)
 
 labels = []
 
-label_frame = tk.Frame(window,  bd=5, relief="raised", pady=5,width = MAX_WIDTH, height = 50, bg=WINDOW_BG)
-label_frame.pack()
-label_frame.grid_propagate(False)
+label_frame = tk.Frame(container,  bd=5, relief="raised", pady=5, bg=WINDOW_BG)
+label_frame.pack(fill="x")
+# label_frame.grid_propagate(False)
 
 # Add a text box for the question number (read-only)
 n = 1
@@ -105,7 +110,7 @@ for i in range(len(labels)):
 
 
 # Add a text box for the Python question prompt (read-only)
-question_text = tk.Text(window, height=6, width=MAX_CHARS, font=(FONT, 14))
+question_text = tk.Text(container, height=6, width=MAX_CHARS, font=(FONT, 14))
 question = (
     "What is the output of the following Python code?\n\n"
     "for i in range(1, 6):\n"
@@ -116,9 +121,9 @@ question_text.config(state="disabled", bg=PROMPT_BG)
 question_text.pack( pady=5)
 
 # Create a frame for the answer buttons
-button_frame = tk.Frame(window,bd=5,relief="ridge", width= MAX_WIDTH,height = 200, bg=WINDOW_BG)
-button_frame.pack()
-button_frame.pack_propagate(False)
+button_frame = tk.Frame(container,bd=5,relief="ridge", bg=WINDOW_BG)
+button_frame.pack(fill="x")
+# button_frame.pack_propagate(False)
 
 
 
@@ -146,10 +151,10 @@ choices = ["1 2 3 4 5", "0 1 2 3 4", "1 2 3 4", "Error"]
 
 choice_buttons = []
 for choice in choices:
-    button = tk.Button(button_frame, text=choice, font=(FONT, 14), bg=BUTTON_BG, command=lambda c=choice: on_choice_click(c))
+    button = tk.Button(button_frame,activebackground=BUTTON_HIGHLIGHT, text=choice, font=(FONT, 14), bg=BUTTON_BG, command=lambda c=choice: on_choice_click(c))
     button.pack(fill = "x", pady = 5)
-    button.bind("<Enter>", on_enter)
-    button.bind("<Leave>", on_leave)
+    # button.bind("<Enter>", on_enter)
+    # button.bind("<Leave>", on_leave)
     choice_buttons.append(button)
 
 
@@ -190,18 +195,18 @@ def next_question():
 
 #Menu
 menu_buttons = []
-menu_frame = tk.Frame(window, width = MAX_WIDTH, height=50,  pady=5, bg=WINDOW_BG)
-menu_frame.pack()
-menu_frame.grid_propagate(False)
+menu_frame = tk.Frame(container,  pady=5, bg=WINDOW_BG)
+menu_frame.pack(fill="x")
+# menu_frame.grid_propagate(False)
 
-restart_button = tk.Button(menu_frame, text="RESTART", font=(FONT, 14), bg=BUTTON_BG, command=lambda: None)
-settings_button = tk.Button(menu_frame, text="SETTINGS", font=(FONT, 14), bg=BUTTON_BG, command=lambda: None)
+restart_button = tk.Button(menu_frame, activebackground=BUTTON_HIGHLIGHT, text="RESTART", font=(FONT, 14), bg=BUTTON_BG, command=lambda: None)
+settings_button = tk.Button(menu_frame, activebackground=BUTTON_HIGHLIGHT, text="SETTINGS", font=(FONT, 14), bg=BUTTON_BG, command=lambda: None)
 
-restart_button.bind("<Enter>", on_enter)
-restart_button.bind("<Leave>", on_leave)
+# restart_button.bind("<Enter>", on_enter)
+# restart_button.bind("<Leave>", on_leave)
 
-settings_button.bind("<Enter>", on_enter)
-settings_button.bind("<Leave>", on_leave)
+# settings_button.bind("<Enter>", on_enter)
+# settings_button.bind("<Leave>", on_leave)
 
 menu_buttons.append(restart_button)
 menu_buttons.append(settings_button)
