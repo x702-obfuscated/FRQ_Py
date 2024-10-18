@@ -14,7 +14,7 @@ FONT_SIZE = 16
 FONT_COLOR = "#d9d9d9"
 
 #Window
-TITLE = "Python Quiz"
+TITLE = "Python Quiz Taker v1.0.0"
 HEIGHT = 400
 WIDTH = 800
 
@@ -39,6 +39,14 @@ MAX_CHARS = 86
 
 def show_frame(frame):
     frame.tkraise()
+
+# Function to change the background color on hover
+def on_enter(event):
+    event.widget.config(bg=BUTTON_HIGHLIGHT)  # Change background color on hover
+
+# Function to revert the background color when the mouse leaves
+def on_leave(event):
+    event.widget.config(bg=BUTTON_BG)  # Reset to default button color
 
 
 def main() -> None:
@@ -81,15 +89,29 @@ def main() -> None:
     show_frame(main_view)
 
     # MAIN_VIEW
-    title_label = tk.Label(main_view,fg="yellow", bg="blue", text=TITLE, font= (FONT, 48))
-    main_menu = tk.Frame(main_view, bg=WINDOW_BG)
+    title_label = tk.Label(main_view,fg="yellow", bg="blue", text=TITLE, font= (FONT, 36))
+    main_menu = tk.Frame(main_view, bg=WINDOW_BG, bd = 5, relief = "raised")
     quiz_menu_button = tk.Button(main_menu,activebackground=BUTTON_HIGHLIGHT, text="QUIZZES", font=(FONT, 14), bg=BUTTON_BG, command= lambda: show_frame(quiz_view))
     settings_menu_button = tk.Button(main_menu, activebackground=BUTTON_HIGHLIGHT, text="SETTINGS", font=(FONT, 14), bg=BUTTON_BG, command= lambda: show_frame(settings_view))
 
+    main_menu.grid_columnconfigure(0, weight=1)
+    main_menu.grid_columnconfigure(1, weight=1)
+    
     title_label.pack(fill="x")
-    main_menu.pack()
-    quiz_menu_button.pack(side="left", anchor="w")
-    settings_menu_button.pack(side="left", anchor="w")
+    main_menu.pack(fill="x")
+    quiz_menu_button.grid(row = 0, column = 0, sticky = "nsew")
+    settings_menu_button.grid(row = 0, column = 1, sticky = "nsew")
+
+    quiz_menu_button.bind("<Enter>", on_enter)
+    quiz_menu_button.bind("<Leave>", on_leave)
+
+
+    settings_menu_button.bind("<Enter>", on_enter)
+    settings_menu_button.bind("<Leave>", on_leave)
+
+    
+  
+
 
 
 
