@@ -2,6 +2,6 @@
 
 @echo off
 
-python mcqs\window.py 
+python mcqs\app.py 
 
 rem pause

@@ -1,6 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
 
+import os
+from pathlib import Path
+
 #Settings
 
 #Fonts
@@ -13,7 +16,7 @@ TITLE = "Python Quizzer v1.0.0"
 HEIGHT = 400
 WIDTH = 800
 
-WINDOW_BG = "black"
+WINDOW_BG = "#1c1c1c"
 
 # Quiz Name Label
 QUIZ_NAME = "PLACEHOLDER QUIZ NAME"
@@ -63,6 +66,9 @@ class App(tk.Tk):
 
     def set_style(self):
         style = ttk.Style()
+
+        style.theme_use('clam')
+        
         style.configure(
             "TFrame",
             background = WINDOW_BG
@@ -81,6 +87,7 @@ class Title_Menu(ttk.Frame):
 
     def __init__(self, parent):
         super().__init__(parent)
+        self.title_image = tk.PhotoImage(file=Path(__file__).parent / "img/background.png")
 
 
         self.build_widgets()
@@ -93,13 +100,20 @@ class Title_Menu(ttk.Frame):
 
 
     def build_widgets(self):
+        
+        self.canvas = tk.Canvas(
+            self, width=MAX_WIDTH, height=MAX_HEIGHT,
+            bg=WINDOW_BG,highlightthickness=0
+        )
+        
+        self.frame = ttk.Frame(self)
 
         self.title = ttk.Label(
-            self, foreground="#FFFF00", background="blue", 
+            self.frame, foreground="white", background=WINDOW_BG, 
             text = TITLE, font = (FONT, 36), anchor = "center"
         )
 
-        self.frame = ttk.Frame(self)
+        
 
         self.quiz = ttk.Button(
             self.frame, 
@@ -114,15 +128,22 @@ class Title_Menu(ttk.Frame):
         
 
     def build_layout(self):
+
+        self.canvas.pack(fill="both",expand=True)
+        self.canvas.create_image(0,0,image=self.title_image, anchor="nw")
+
+
         self.frame.grid_columnconfigure(0, weight=1)
         self.frame.grid_columnconfigure(1, weight=1)
-
+        
+        self.frame.place(relx=0.5,rely=0.25, anchor="center")
+        
         self.title.pack(fill="x")
-        self.frame.pack(fill="x")
-        self.quiz.grid(row = 0, column = 0, sticky = "nsew", pady = 5)
-        self.settings.grid(row = 0, column = 1, sticky = "nsew", pady = 5)
-
-
+        
+        # self.quiz.grid(row = 0, column = 0, sticky = "nsew", pady = 5)
+        # self.settings.grid(row = 0, column = 1, sticky = "nsew", pady = 5)
+        self.quiz.pack(fill="x")
+        self.settings.pack(fill="x")
 
 
 
