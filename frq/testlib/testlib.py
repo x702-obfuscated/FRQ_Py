@@ -41,36 +41,36 @@ class TestPy:
         with open(self.path,"r") as file:
             self.content = file.read()
     
-    def assess(self):
-        # self.num-=1
-        
+    def assess(self):  
+        try:
+            passpercent = round(self.numpassed / self.num * 100)
+            failpercent = round(self.numfailed / self.num * 100)
+        except ZeroDivisionError as e:
+            passpercent = 0
+            failpercent = 0
 
-        passpercent = round(self.numpassed / self.num * 100)
-        failpercent = round(self.numfailed / self.num * 100)
-        
         self.report.append("\n")
         if self.numpassed:
-            self.report.insert(0,f"Tests Passed \u2705: {self.numpassed} : {passpercent}%")
+            self.report.insert(0,f"Tests Passed \u2705: {self.numpassed} : {passpercent}%\n")
         if self.numfailed:
-            self.report.insert(0,f"Tests Failed \u2757: {self.numfailed} : {failpercent}%\n")
+            self.report.insert(0,f"Tests Failed \u274C: {self.numfailed} : {failpercent}%\n")
 
         self.report.insert(0,"\n")
 
-        self.report.insert(0,f"TIME: {str(datetime.now())}\n")
+        self.report.insert(0,f"[ TIME: {str(datetime.now())} ]\n")
 
         try:
-            self.report.insert(0,f"USER: {getuser().upper()}\n")
+            self.report.insert(0,f"[ USER: {getuser().upper()} ]\n")
         except KeyError as e:
             self.report.insert(0,str(self.path))
 
-        if self.numpassed == self.num:
+        if not(self.num > 0):
+            self.report.insert(0,f"\u2757 No tests found for this module. \u2757\n")
+        elif self.numpassed == self.num:
             self.report.insert(0,f"\u2705 ALL TESTS PASSED \u2705\n")
         else:
-            self.report.insert(0,f"\u2757 THERE ARE FAILING TESTS \u2757\n")
-        
-        
-        self.report.append("\n")
-
+            self.report.insert(0,f"\u274C THERE ARE FAILING TESTS \u274C\n")
+ 
     def test(self, *params):
         def decorator(function):
             def wrapper():
@@ -82,7 +82,7 @@ class TestPy:
                         self.report.append(f"\u2705 Test {self.num} Passed\n")
                     except AssertionError as e:
                         self.numfailed +=1
-                        self.report.append(f"\u2757 Test {self.num} Failed : {str(e)}\n")
+                        self.report.append(f"\u274C Test {self.num} Failed : {str(e)}\n")
                 
                 for param in params:
                     self.num+=1
@@ -92,21 +92,31 @@ class TestPy:
                         self.report.append(f"\u2705 Test {self.num} Passed\n")
                     except AssertionError as e:
                         self.numfailed +=1
-                        self.report.append(f"\u2757 Test {self.num} Failed : {str(e)}\n")
+                        self.report.append(f"\u274C Test {self.num} Failed : {str(e)}\n")
             return wrapper
         return decorator
 
-    def writereport(self):
-        os.chmod(self.reportpath,0o644)
+    def encode(self):
+        for i,_ in enumerate(self.report):
+            self.report[i] = self.report[i].encode("utf-8")
 
-        with open(self.reportpath, "w") as file:
+    def writereport(self):
+        self.encode()
+        if os.path.exists(self.reportpath):
+            os.chmod(self.reportpath,0o644)
+
+        with open(self.reportpath, "wb") as file:
             file.writelines(self.report)
 
         os.chmod(self.reportpath,0o444)
 
     def showreport(self):
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+        # with open(self.reportpath, "rb") as file:
+        #     print(file.read().decode("utf-8"))
+        self.encode()
         for r in self.report:
-            print(r.replace("\n",""))
+            print(r.decode("utf-8").replace("\n",""))
 
     def assertin(self,value,txt=None,feedback=None):
 
@@ -128,7 +138,6 @@ class TestPy:
             feedback = "Expected pattern not found in content."
 
         assert re.search(pattern,txt), feedback
-
 
     def assertequal(self, attribute, expected_out, *args):
         exptype = type(expected_out)
@@ -185,9 +194,10 @@ class TestPy:
         for test in self.alltests:
             test()
 
+        
         self.assess()
+        # self.writereport()
         self.showreport()
-        self.writereport()
 
 
 

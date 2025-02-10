@@ -1,7 +1,7 @@
 from pathlib import Path
 import subprocess,os,sys
 
-testname ="t11"
+testname ="t52"
 mainname = "main"
 
 PACKAGE = Path(__file__).parent
