@@ -1,0 +1,43 @@
+[ All assignment code should be written inside of the 'main.py' file.        ]
+[ In VS Code use CTRL + J to open the terminal.                              ]
+[ In the terminal type 'python main.py' to execute your code.                ]
+[ In the terminal type 'python test.py' to test your code for correctness.   ]
+
+[ Comments-Input-Output-Errors : Challenges                                  ]
+
+[1.]    Write a single line comment that includes your full name.
+
+
+[2.]    Write a multi-line comment with your name, class hour, and graduating class on seperate lines.
+
+
+[3.]    Write a Python code statement that outputs "Hello World!" to the console. 
+        The output text must match the exact text in quotes. 
+
+
+[4.]    Write a Python code statement that ONLY accepts user input.
+
+
+[5.]    Write a Python code statement that prompts the user with "Enter Your Name". 
+        The prompt must match the exact text in quotes. 
+
+
+[6.]    Write a Python code statement that accepts input from the user and prints it to the console in the same statement.
+
+
+[7.]    Write a Python code statement that prompts the user with "Enter Your Password", then prints the password they entered to the console.
+        The prompt must match the exact text in quotes.  
+
+
+[8.]    Write a Python code statement that prints out "Username: ". Then on the next line write a code statement to accept user input and print it to the console. 
+        The printed text must match the exact text in quotes. 
+
+
+[9.]    Write a Python code statement that prompts the user with "First Name: " and prints out their input in the same statement. 
+        On the next line write a code statement the prompts the user with "Last Name: " and prints out their input input in the same statement.
+        On the next line write a code statement the prompts the user with "Date of Birth: " and prints out their input input in the same statement.
+        The prompt text must match the exact text in quotes. 
+
+
+[10.]   Write a Python code statement that prints out " 0 1 a B ! ".
+        The printed text must match the exact text in quotes.

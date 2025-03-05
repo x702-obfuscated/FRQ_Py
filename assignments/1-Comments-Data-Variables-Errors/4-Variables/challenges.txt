@@ -1,0 +1,50 @@
+[ All assignment code should be written inside of the 'main.py' file.        ]
+[ In VS Code use CTRL + J to open the terminal.                              ]
+[ In the terminal type 'python main.py' to execute your code.                ]
+[ In the terminal type 'python test.py' to test your code for correctness.   ]
+
+[ Variables : Challenges                                                          ]
+
+[1.]    Define the following variables: 
+            A variable named nothing with the value None
+            A variable named switch with the value True
+            A variable named num with the value 42
+            A variable named precent with the value 0.75
+            A variable named name with the value "Alice"
+            A variable named fruits with a list containing "apple", "banana", and "cherry"
+            A variable named coordinates with a tuple containing (10, 20)
+            A variable named person with a dictionary containing "name": "Bob" and "age": 30
+            
+
+
+
+[2.]    Assign 3 variables named 'one', 'two', and 'three' to the value "abc" 
+        on the same line without using semicolons(;) or commas(,).
+
+
+[3.]    Assign 3 variables named 'scource', 'byte', and 'machine' 
+        to the values "text", "bytes", and "binary" on the same line 
+        without using commas(,).
+
+
+[4.]    Assign 4 variables named 'pi', 'euler', 'phi', 'mol' to  3.14 , 2.718 , 1.618 , and 6.022E23 repectively one the same line without using semicolons(;)  
+
+
+[5.]    Define a variable named 'changeme' to the value True. Then reassign 'changme' to the value False.
+
+
+[6.]    Define a variable named 'message' and assign it the value "Hello World". Print out 'message'.
+
+
+[7.]    Define a variable named 'this' and assign it the value [1,2,3].
+        Define a variable named 'that' and assign it the variable 'this'
+        Define a variable named 'other' and assign it the variable 'that'
+        Write out the statement --> other[0] = "same"
+        print out the variable 'this'
+        print out the variable 'that'
+        print out the variable 'other'
+
+
+
+
+
