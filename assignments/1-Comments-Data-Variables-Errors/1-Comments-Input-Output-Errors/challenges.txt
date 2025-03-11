@@ -33,9 +33,9 @@
         The printed text must match the exact text in quotes. 
 
 
-[9.]    Write a Python code statement that prompts the user with "First Name: " and prints out their input in the same statement. 
-        On the next line write a code statement the prompts the user with "Last Name: " and prints out their input input in the same statement.
-        On the next line write a code statement the prompts the user with "Date of Birth: " and prints out their input input in the same statement.
+[9.]    Write a Python code statement that prompts the user with "First Name: " and then accepts input and prints it out in a seperate statement on the next line. 
+        On the next line write a code statement the prompts the user with "Last Name: " and then accepts input and prints it out in a seperate statement on the next line.
+        On the next line write a code statement the prompts the user with "Date of Birth: " and then accepts input and prints it out in a seperate statement on the next line.
         The prompt text must match the exact text in quotes. 
 
 
