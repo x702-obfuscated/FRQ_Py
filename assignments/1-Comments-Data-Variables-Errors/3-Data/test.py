@@ -55,7 +55,7 @@ def maketests():
     @test()
     def tq7():
     #    [7.]    Write a Python code statement that represents the text --> 01234567890
-        assert re.search(r"[\"']01234567890[\"']", filecontent), "Expected the string --> 0123456789 , but was not found. How do you represent a string in Python?" 
+        assert re.search(r"[\"']01234567890[\"']", filecontent), "Expected the string --> 01234567890 , but was not found. How do you represent a string in Python?" 
 
     @test()
     def tq8():
