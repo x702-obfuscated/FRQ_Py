@@ -70,7 +70,7 @@ def maketests():
     @test()
     def tq10():
     #    [10.]   Write a Python code statement that represents a list of the following numbers --> 4 5 6
-        assert re.search(r"\[\s*4\s*,\s*5\s*,\s*6\s*\]", filecontent), "Expected a list of integers --> 4 5,6 but was not found. How do you represent an integer in Python? How do you represent a list in Python?" 
+        assert re.search(r"\[\s*4\s*,\s*5\s*,\s*6\s*\]", filecontent), "Expected a list of integers --> 4,5,6 but was not found. How do you represent an integer in Python? How do you represent a list in Python?" 
 
     @test()
     def tq11():
