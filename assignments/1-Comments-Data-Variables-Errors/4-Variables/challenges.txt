@@ -12,7 +12,7 @@
             A variable named precent with the value 0.75
             A variable named name with the value "Alice"
             A variable named fruits with a list containing "apple", "banana", and "cherry"
-            A variable named coordinates with a tuple containing (10, 20)
+            A variable named coordinates with a tuple containing the values 10 and 20
             A variable named person with a dictionary containing "name": "Bob" and "age": 30
             
 
@@ -22,7 +22,7 @@
         on the same line without using semicolons(;) or commas(,).
 
 
-[3.]    Assign 3 variables named 'scource', 'byte', and 'machine' 
+[3.]    Assign 3 variables named 'source', 'byte', and 'machine' 
         to the values "text", "bytes", and "binary" on the same line 
         without using commas(,).
 
@@ -40,9 +40,11 @@
         Define a variable named 'that' and assign it the variable 'this'
         Define a variable named 'other' and assign it the variable 'that'
         Write out the statement --> other[0] = "same"
-        print out the variable 'this'
-        print out the variable 'that'
-        print out the variable 'other'
+        
+        Using seperate print statements:
+            print out the variable 'this'
+            print out the variable 'that'
+            print out the variable 'other'
 
 
 

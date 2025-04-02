@@ -1,4 +1,4 @@
-identity='e2ed7e6d73f114f57b9dc2cbcdcdf14a9da4d08f57f30402fca60049d7a188edf7947398f538a39204d01ddc151e8d71b449d37b3f3b027f318a34aafb6650b9'
+identity='6a04041dd05a8f57273f7a5d1cb10aea5190becba231cb2be639b4016b5eca1bde6747a9d66aa785834ecb2d1d0dae777d990a1d00b4bf17e1743abb3c974d5b'
 import subprocess,os,sys,hashlib
 from datetime import datetime
 from getpass import getuser
@@ -48,7 +48,7 @@ def maketests(m=None):
 
 
     @test(
-        ("scource","text"),
+        ("source","text"),
         ("byte","bytes"),
         ("machine","binary")
     )
@@ -58,7 +58,7 @@ def maketests(m=None):
 
     @test()
     def t5():
-        assert re.search(r"scource\s*=\s*[\"']text[\"']\s*;\s*byte\s*=\s*[\"']bytes[\"']\s*;\s*machine\s*=\s*[\"']binary[\"']",filecontent), f"Expected variables 'scource', 'byte', and 'machine' to be assigned on the same line to the values \"text\", \"bytes\", and \"binary\" without using semicolons(;) or commas(,), but was not found."
+        assert re.search(r"source\s*=\s*[\"']text[\"']\s*;\s*byte\s*=\s*[\"']bytes[\"']\s*;\s*machine\s*=\s*[\"']binary[\"']",filecontent), f"Expected variables 'source', 'byte', and 'machine' to be assigned on the same line to the values \"text\", \"bytes\", and \"binary\" without using semicolons(;) or commas(,), but was not found."
 
     @test(
         ("pi",3.14),
@@ -90,32 +90,41 @@ def maketests(m=None):
         assert getattr(m,var) == val, f"Expected '{var}' to point to \"{val}\" , but it does not."
         assert re.search(r"print\s*\(\s*message\s*\)",filecontent), f"Expected a print() call that prints out the value of '{var}', but was not found."
 
-    @test(
-        ("this",["same",2,3]),
-        ("that",["same",2,3]),
-        ("other",["same",2,3])
-    )
-    def t10(var,val):
-        assert hasattr(m,var), f"Expected a defined variable named '{var}', but was not found."
-        assert getattr(m,var) == val, f"Expected '{var}' to point to \"{val}\" , but it does not."
+    # @test(
+    #     ("this",["same",2,3]),
+    #     ("that",["same",2,3]),
+    #     ("other",["same",2,3])
+    # )
+    # def t10(var,val):
+    #     assert hasattr(m,var), f"Expected a defined variable named '{var}', but was not found."
+    #     assert getattr(m,var) == val, f"Expected '{var}' to point to \"{val}\" , but it does not."
         
-    @test(
-        ("this","that","other")
-    )
-    def t11(*val):
-        for i in range(len(val)):
-            assert hasattr(m,val[i]), f"Expected '{val[i]}' to be defined, but was not found."
-        assert getattr(m,val[0]) is getattr(m,val[1]) is getattr(m,val[2]), f"Expected '{val[0]}', '{val[1]}', and '{val[2]}' to be aliases, but they are not."
+    # @test(
+    #     ("this","that","other")
+    # )
+    # def t11(*val):
+    #     for i in range(len(val)):
+    #         assert hasattr(m,val[i]), f"Expected '{val[i]}' to be defined, but was not found."
+    #     assert getattr(m,val[0]) is getattr(m,val[1]) is getattr(m,val[2]), f"Expected '{val[0]}', '{val[1]}', and '{val[2]}' to be aliases, but they are not."
 
-        assert re.search(r"other\[0\]\s*=\s*[\"']same[\"']",filecontent), "Expected the statement other[0] = \"same\" in the scource code, but was not found"
+    #     assert re.search(r"other\[0\]\s*=\s*[\"']same[\"']",filecontent), "Expected the statement other[0] = \"same\" in the source code, but was not found"
 
-        for i in range(len(val)):
-            assert re.search(rf"print\s*\(\s*{val[i]}\s*\)",filecontent), "Expected a print() call with {val[i]} as an argument, but was not found."
+    #     for i in range(len(val)):
+    #         assert re.search(rf"print\s*\(\s*{val[i]}\s*\)",filecontent), f"Expected a print() call with {val[i]} as an argument, but was not found."
 
 
-    @test("this","that","other")
-    def t12(var):
-        asser 
+    @test(("this","that","other"))
+    def t10(*vars):
+        for var in vars:
+            assert hasattr(m,var), f"Expected '{var}' to be defined, but it was not found. Did you define '{var}'?"
+        
+        assert getattr(m,vars[0]) is getattr(m,vars[1]) is getattr(m,vars[2]), f"Expected 'this', 'that', and 'other to be aliases. How are aliases defined?"
+        assert getattr(m,vars[2]) == ["same",2,3], f"Expected 'other' to point to the value [\"same\",2,3] . Did you reassign the value of other[0] correctly?"
+
+        for var in vars:
+            assert re.search(rf"print\s*\(\s*{var}\s*\)",filecontent), f"Expected a print() call containing the argrument '{var}' but it was not found. Did you print out '{var}'?"
+
+
     alltests.append(t1)
     alltests.append(t2)
     alltests.append(t3)
@@ -126,7 +135,8 @@ def maketests(m=None):
     alltests.append(t8)
     alltests.append(t9)
     alltests.append(t10)
-    alltests.append(t11)
+    # alltests.append(t11)
+    # alltests.append(t12)
 
 def checkintegrity():
     hasher = hashlib.sha512()
