@@ -1,4 +1,4 @@
-identity='6a04041dd05a8f57273f7a5d1cb10aea5190becba231cb2be639b4016b5eca1bde6747a9d66aa785834ecb2d1d0dae777d990a1d00b4bf17e1743abb3c974d5b'
+identity='d89e987626657e52cc270b3cfa9ebe33a1f4faca9674b4143d0c6616102c103c175c5fb5f4f236e6a15dc57f30fa4503eae9666c3e25045809ff1bc1beef43d1'
 import subprocess,os,sys,hashlib
 from datetime import datetime
 from getpass import getuser
@@ -58,7 +58,7 @@ def maketests(m=None):
 
     @test()
     def t5():
-        assert re.search(r"source\s*=\s*[\"']text[\"']\s*;\s*byte\s*=\s*[\"']bytes[\"']\s*;\s*machine\s*=\s*[\"']binary[\"']",filecontent), f"Expected variables 'source', 'byte', and 'machine' to be assigned on the same line to the values \"text\", \"bytes\", and \"binary\" without using semicolons(;) or commas(,), but was not found."
+        assert re.search(r"source\s*=\s*[\"']text[\"']\s*;\s*byte\s*=\s*[\"']bytes[\"']\s*;\s*machine\s*=\s*[\"']binary[\"']",filecontent), f"Expected variables 'source', 'byte', and 'machine' to be assigned on the same line to the values \"text\", \"bytes\", and \"binary\" without using commas(,), but was not found."
 
     @test(
         ("pi",3.14),

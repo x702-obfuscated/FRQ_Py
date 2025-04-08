@@ -1,4 +1,4 @@
-identity='b24048f90ced1f9e3a6e14857ec0264db4b9e48b3cbde23a31fa97e488621b3c1961bddfda94d49a9aca6aa0f9de6a16430f8b76cd21cd627fbcb77e8c6f14a6'
+identity='46065a8adaefdfcc4b67e43fa1dde59db9df7750ebea5133ddaec96344cd9d6bc733293e3bcbc5bd9cdb0a4bd3877e4181bacedf86b36c083bca7698fdaf94af'
 import subprocess,os,sys,hashlib
 from datetime import datetime
 from getpass import getuser
@@ -126,10 +126,10 @@ def maketests(m=None):
     
     @test()
     def t11():
-        assert re.search(r"up\s*\+=1", filecontent), "Q21: Did you use the  compound addition and assignment operator? Did you increase by 1? Did you use the 'up' variable?"
+        assert re.search(r"up\s*\+=\s*1", filecontent), "Q21: Did you use the  compound addition and assignment operator? Did you increase by 1? Did you use the 'up' variable?"
         check_var("up", 1, "21")
         
-        assert re.search(r"down\s*\-=1", filecontent), "Q22: Did you use the 'down' variable? Did you use the compound subtraction and assignment operator? Did you decrease by 1?"
+        assert re.search(r"down\s*\-=\s*1", filecontent), "Q22: Did you use the 'down' variable? Did you use the compound subtraction and assignment operator? Did you decrease by 1?"
         check_var("down",9,"22")
 
     @test(
