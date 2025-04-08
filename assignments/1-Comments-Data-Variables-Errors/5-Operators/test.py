@@ -1,4 +1,4 @@
-identity='6a04041dd05a8f57273f7a5d1cb10aea5190becba231cb2be639b4016b5eca1bde6747a9d66aa785834ecb2d1d0dae777d990a1d00b4bf17e1743abb3c974d5b'
+identity='3400fb3f3021ecf765027ca73eb5bf0e605bce15d65a88ff79cfdd7e5a35317f26da8c88c429202cc270af7759d453f6d55f8a44489a175e8855b40a81892080'
 import subprocess,os,sys,hashlib
 from datetime import datetime
 from getpass import getuser
@@ -19,19 +19,145 @@ alltests = []
 def maketests(m=None):
     global filecontent
 
+    # @test(
+    #     ("nothing", None),
+    #     ("switch", True),
+    #     ("num", 42),
+    #     ("percent",0.75),
+    #     ("name","Alice"),
+    #     ("fruits",["apple","banana","cherry"]),
+    #     ("coordinates",(10,20)),
+    #     ("person", {"name":"Bob","age":30})
+    # )
+    # def t1(var,val):
+    #     assert hasattr(m,var), f"Expected a defined variable named '{var}', but was not found."
+    #     assert getattr(m,var) == val, f"Expected '{var}' to point to {val} , but it does not."
+
+    def check_var(var,value,q):
+        assert hasattr(m,var), f"Q{q}: Expected to find a variable named '{var}', but it was not found."
+        assert getattr(m,var) == value, f"Q{q}: Expected '{var}' to reference the value '{value}', instead it references '{getattr(m,var)}'"
+
+    @test()
+    def t1():
+        check_var("joined","helloworld",1)
+        assert re.search(r"[\"']hello[\"']\s*\+\s*[\"']world[\"']",filecontent), 'Q1: Expected "hello" and "world" concatenated using +, but was not found.'
+
+    @test()
+    def t2():
+        check_var("duped","appleappleapple",2)
+        assert re.search(r"[\"']apple[\"']\s*\*\s*3", filecontent), "Q2: Expected 'apple' duplicated with *, but it was not found." 
+
+    @test()
+    def t3():
+        check_var("int_to_str","8",3)
+        assert re.search(r"str\(\s*8\s*\)",filecontent), "Q3: Expected a str() call with the argument 8, but was not found."
+        assert re.search(r"print\(\s*type\(\s*int_to_str\s*\)\s*\)",filecontent), "Q3: Expected a print() containing type() with the argument 'int_to_str', but was not found."
+
+    @test() 
+    def t4():
+        check_var("str_to_int", 90, 4)
+        assert re.search(r"int\(\s*[\"']90[\"']\s*\)",filecontent), "Q4: Expected an int() call with the argument \"90\", but was not found. Is 90 in quotes? Did you cast with int()?"
+        assert re.search(r"print\(\s*type\(\s*str_to_int\s*\)\s*\)",filecontent), "Q4: Expected a print() containing type() with the argument 'str_to_int', but was not found."
+    
+    @test()
+    def t5():
+        check_var("int_to_float",2.0,5)
+        assert re.search(r"float\(\s*2\s*\)",filecontent), "Q5: Expected a float() call with the arguemnt 2, but was not found."
+        assert re.search(r"print\(\s*type\(\s*int_to_float\s*\)\s*\)",filecontent), "Q5: Expected a print() containing type() with the argument 'int_to_float', but was not found."
+
     @test(
-        ("nothing", None),
-        ("switch", True),
-        ("num", 42),
-        ("percent",0.75),
-        ("name","Alice"),
-        ("fruits",["apple","banana","cherry"]),
-        ("coordinates",(10,20)),
-        ("person", {"name":"Bob","age":30})
+        ("addition", 897 + 548, 6,r"897\s*\+\s*548", "addition"),
+        ("subtraction", 3209-1120, 7, r"3209\s*\-\s*1120", "subtraction"),
+        ("product", 1200*34, 8, r"1200\s*\*\s*34", "multiplication"),
+        ("quotient",612/9, 9, r"612\s*/\s*9", "division"),
+        ("floor",429//17, 10, r"429\s*//\s*17", "floor/integer division"),
+        ("remainder",429%17,11, r"429\s*\%\s*17", "remainder/modulo"),
+        ("exponents",2**8, 12, r"2\s*\*\*\s*8", "exponentiation"),
     )
-    def t1(var,val):
-        assert hasattr(m,var), f"Expected a defined variable named '{var}', but was not found."
-        assert getattr(m,var) == val, f"Expected '{var}' to point to {val} , but it does not."
+    def t6(var, value, q, pattern, operation):
+        check_var(var, value, q)
+        assert re.search(pattern, filecontent), f"Q{q}: Expected to find the {operation} operator, but it was not found."
+
+    @test(
+        ("alpha",100),
+        ("beta", 200),
+        ("gamma", 300)
+    )
+    def t7(var, value):
+        check_var(var, value,"13-18")
+
+    
+    @test(
+        (13, "thirteen", False, "greater than", r"alpha\s*\>\s*beta"),
+        (14, "fourteen", True, "less than", r"alpha\s*\<\s*beta"),
+        (15, "fifteen", False, "greater than or equal to", r"beta\s*\>=\s*gamma"),
+        (16, "sixteen", True, "less than or equal to", r"beta\s*\<=\s*gamma"),
+        (17, "seventeen", False, "equal to", r"alpha\s*==\s*gamma"),
+        (18, "eighteen", True, "not equal to", r"gamma\s*\!=\s*alpha")
+    )
+    def t8(q,var, value,operation, pattern):
+        check_var(var,value,q)
+        assert re.search(pattern, filecontent), f"Q{q}: Did you use the {operation} operator. Did you use the right variables?"
+
+
+    @test()
+    def t9():
+        check_var("list1d",["a","e","i","o","u"],"19-20")
+
+        assert hasattr(m,"character"), "Q19-20: Expected to find a variable named 'character', but it was not found."
+        c = getattr(m,"character")
+        assert (c.isalpha() and len(c) == 1), f"Q19-20: Expected 'character' to point to a single character of the alphabet, but instead it points to '{c}'"
+
+
+    @test()
+    def t10():
+        try:
+            c = getattr(m,"character")
+            l = getattr(m,"list1d")
+        except:
+            raise AssertionError("This test requires Test 22 to be passing.")
+        
+        check_var("nineteen", c in l, 19)
+        assert re.search(r"character\s*in\s*list1d", filecontent), "Q19: Did you use the correct variable names? Did you use the member of (apart of) operator?"
+        check_var("twenty", c not in l, 20)
+        assert re.search(r"character\s*not\s*in\s*list1d",filecontent),"Q20: Did you use the correct variable names, Did you use the not a member of (not apart of) operator?"
+        
+        
+    
+    @test()
+    def t11():
+        assert re.search(r"up\s*\+=1", filecontent), "Q21: Did you use the  compound addition and assignment operator? Did you increase by 1? Did you use the 'up' variable?"
+        check_var("up", 1, "21")
+        
+        assert re.search(r"down\s*\-=1", filecontent), "Q22: Did you use the 'down' variable? Did you use the compound subtraction and assignment operator? Did you decrease by 1?"
+        check_var("down",9,"22")
+
+    @test(
+        ("yes", True),
+        ("no", False),
+        ("one", True),
+        ("zero", False)
+    )
+    def t12(var, value):
+        check_var(var, value, "23-25")
+
+    @test(
+        (23, r"print\(\s*not\s*yes\s*\)","Did you use the NOT operator? Did you print? Did you use the correct variable?"),
+        (23, r"print\(\s*not\s*no\s*\)","Did you use the NOT operator? Did you print? Did you use the correct variable?"), 
+        (23, r"print\(\s*not\s*one\s*\)","Did you use the NOT operator? Did you print? Did you use the correct variable?"), 
+        (23, r"print\(\s*not\s*zero\s*\)","Did you use the NOT operator? Did you print? Did you use the correct variable?"), 
+        (24, r"print\(\s*yes\s*and\s*one\s*\)","Did you use the AND operator? Did you print? Did you use the correct variables?"), 
+        (24, r"print\(\s*yes\s*and\s*no\s*\)","Did you use the AND operator? Did you print? Did you use the correct variables?"),   
+        (24, r"print\(\s*no\s*and\s*one\s*\)","Did you use the AND operator? Did you print? Did you use the correct variables?"), 
+        (24, r"print\(\s*no\s*and\s*zero\s*\)","Did you use the AND operator? Did you print? Did you use the correct variables?"),
+        (25, r"print\(\s*yes\s*or\s*one\s*\)","Did you use the OR operator? Did you print? Did you use the correct variables?"), 
+        (25, r"print\(\s*yes\s*or\s*no\s*\)","Did you use the OR operator? Did you print? Did you use the correct variables?"),   
+        (25, r"print\(\s*no\s*or\s*one\s*\)","Did you use the OR operator? Did you print? Did you use the correct variables?"), 
+        (25, r"print\(\s*no\s*or\s*zero\s*\)","Did you use the OR operator? Did you print? Did you use the correct variables?"),
+    )
+    def t13(q,pattern, feedback):
+        assert re.search(pattern, filecontent), f"Q{q}: {feedback}"
+    
 
     alltests.append(t1)
     alltests.append(t2)
@@ -43,8 +169,9 @@ def maketests(m=None):
     alltests.append(t8)
     alltests.append(t9)
     alltests.append(t10)
-    # alltests.append(t11)
-    # alltests.append(t12)
+    alltests.append(t11)
+    alltests.append(t12)
+    alltests.append(t13)
 
 def checkintegrity():
     hasher = hashlib.sha512()

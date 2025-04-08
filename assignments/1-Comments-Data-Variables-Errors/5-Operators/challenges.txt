@@ -5,17 +5,139 @@
 
 [ Operators : Challenges                                                     ]
 
-[1.]    Define the following variables: 
-            A variable named nothing with the value None
-            A variable named switch with the value True
-            A variable named num with the value 42
-            A variable named precent with the value 0.75
-            A variable named name with the value "Alice"
-            A variable named fruits with a list containing "apple", "banana", and "cherry"
-            A variable named coordinates with a tuple containing the values 10 and 20
-            A variable named person with a dictionary containing "name": "Bob" and "age": 30
-            
+[1.] Write a Python statement that combines the strings "hello" and "world" using concatenation. 
+     Assign the result to a variable with the name 'joined'.
 
+
+[2.] Write a Python statement that combines the string "apple" with itself three times using duplication. 
+     Assign the result to a variable with the name 'duped'.
+
+
+[3.] Create a variable called "int_to_str" and assign it the value of 8 cast to a string. 
+     Print out the type of "int_to_str" using the built in function call.
+
+
+[4.] Create a variable called "str_to_int" and assign it the value of "90" cast to an integer. 
+     Print out the type of "str_to_int" using the built in function call. 
+
+
+[5.] Create a variable called "int_to_float" and assign it the value of 2 cast to a float. 
+     Print out the type of "int_to_float" using the built in function call.
+
+
+[6.] Write a Python expression to calculate the sum of 897 and 548 using the correct operator.
+     Assign this expression to a variable named 'addition'.
+
+
+[7.] Write a Python expression to calculate the difference between 3209 and 1120 using the correct operator.
+     Assign this expression to a variable named 'subtraction'
+
+
+[8.] Write a Python expression to calculate the product of 1200 and 34 using the correct operator. 
+     Assign this expression to a variable named 'product'
+
+
+[9.] Write a Python expression to calculate the quotient of 612 and 9 using the correct operator. 
+     Assign this expression to a variable named 'quotient'. 
+
+
+[10.] Write a Python expression to calculate the floor of 429 and 17 using the correct operator. 
+      Assign this expression to a variable named 'floor'.
+      (Hint: floor refers to floor/integer division)
+    
+
+[11.] Write a Python expression to calculate the remainder of 429 and 17 using the correct operator. 
+      Assign this expression to a variable named 'remainder'.
+
+
+[12.] Write a Python expression to calculate 2 to the 8th power. 
+      Assign this expression to a variable named 'exponents'.
+
+
+For questions 13 through 18 
+Create 3 variables with the names 'alpha', 'beta', and 'gamma'.
+      Assign 'alpha' the integer value 100. 
+      Assign 'beta' the integer value 200.
+      Assign 'gamma' the integer value 300.
+
+
+[13.] Write a Python boolean expression to determine if the value of'alpha' is greater than the value of 'beta'.
+      Assign the expression to a variable named 'thirteen'.
+
+
+[14.] Write a Python boolean expression to determine if the value of'alpha' is less than the value of'beta'.
+      Assign the expression to a variable named 'fourteen'.
+
+
+[15.] Write a Python boolean expression to determine if the value of 'beta' is greater than or equal to the value of 'gamma'. 
+      Assign the expression to a variable named 'fifteen'.
+
+
+[16.] Write a Python boolean expression to determine if the value of ‘beta’ is less than or equal to the value of ‘gamma’. 
+      Assign the expression to a variable named ‘sixteen’.
+
+
+[17.] Write a Python boolean expression to determine if the value of ‘alpha’ is equal to the value of ‘gamma’.
+      Assign the expression to a variable named ‘seventeen’.
+
+[18.] Write a Python boolean expression to determine if the value of ‘gamma’ is not equal to the value of ‘alpha’.
+      Assign the expression to a variable named ‘eighteen’.
+
+
+For Questions 19 and 20:
+    Create a list that contains the characters “a”,“e”,“i”,”o”,”u” and assign it to a variable named ‘list1d’. 
+    Pick any character in the alphabet, and assign it to a variable named ‘character’. 
+
+
+[19.] Write a Python boolean expression to check if ‘character’ is a member of  ‘list1d’. 
+      Assign the expression to a variable named ‘nineteen’.
+      (member of is similar in meaning to apart of)
+
+
+[20.] Write a Python boolean expression to check if ‘character’ is not a member of ‘list1d’. 
+      Assign the expression to a variable named ‘twenty’.
+      (member of is similar in meaning to apart of)
+
+
+For Questions 21 and 22. 
+    Create a variable named ‘up’ and assign it an integer value of 0.
+    Create a variable named ‘down’ and assign it an integer value of 10.
+
+
+[21.] Using the appropriate operator increment the value of ‘up’ by 1.
+      Print out the value of ‘up’.
+
+ 
+[22.] Using the appropriate operator decrement the value of ‘down’ by 1.
+      Print out the value of ‘down’ 
+
+
+For Questions 23 through 25:
+    Create a variable named ‘yes’ and assign it the value True.
+    Create a variable named ‘no’ and assign it the value False.
+    Create a variable named ‘one’ and assign it the value True.
+    Create a variable named ‘zero’ and assign it the value False.
+
+
+[23.] Write a separate Python boolean expression performing the logical NOT operation on each of the variables ‘yes’, ‘no’, ‘one’, and ‘zero’.
+      Print out each expression using a separate print statement. 
+
+
+[24.] Write separate Python boolean expressions performing the following logical AND operations:
+     ‘yes’ AND ‘one’
+     ‘yes’ AND ‘no’
+     ‘no’ AND ‘one’
+     ‘no’ AND ‘zero’
+     Print out each expression using a separate print statement. 
+
+
+
+[25.] Write separate Python boolean expressions performing the following logical OR operations:
+      ‘yes’ OR ‘one’
+      ‘yes’ OR ‘no’
+      ‘no’ OR ‘one’
+      ‘no’ OR ‘zero’
+      Print out each expression using a separate print statement. 
 
 
 
