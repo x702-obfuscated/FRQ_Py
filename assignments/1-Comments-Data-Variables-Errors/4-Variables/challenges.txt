@@ -9,7 +9,7 @@
             A variable named nothing with the value None
             A variable named switch with the value True
             A variable named num with the value 42
-            A variable named precent with the value 0.75
+            A variable named percent with the value 0.75
             A variable named name with the value "Alice"
             A variable named fruits with a list containing "apple", "banana", and "cherry"
             A variable named coordinates with a tuple containing the values 10 and 20
