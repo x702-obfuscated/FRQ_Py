@@ -1,0 +1,23 @@
+[ All assignment code should be written inside of the 'main.py' file.        ]
+[ In VS Code use CTRL + J to open the terminal.                              ]
+[ In the terminal type 'python main.py' to execute your code.                ]
+[ In the terminal type 'python test.py' to test your code for correctness.   ]
+
+[ Basic Functions : Challenges                                               ]
+
+[1.]    Define the following variables: 
+            A variable named nothing with the value None
+            A variable named switch with the value True
+            A variable named num with the value 42
+            A variable named precent with the value 0.75
+            A variable named name with the value "Alice"
+            A variable named fruits with a list containing "apple", "banana", and "cherry"
+            A variable named coordinates with a tuple containing the values 10 and 20
+            A variable named person with a dictionary containing "name": "Bob" and "age": 30
+            
+
+
+
+
+
+
