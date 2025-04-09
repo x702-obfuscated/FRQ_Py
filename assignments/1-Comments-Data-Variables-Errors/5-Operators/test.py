@@ -106,7 +106,10 @@ def maketests(m=None):
 
         assert hasattr(m,"character"), "Q19-20: Expected to find a variable named 'character', but it was not found."
         c = getattr(m,"character")
-        assert (c.isalpha() and len(c) == 1), f"Q19-20: Expected 'character' to point to a single character of the alphabet, but instead it points to '{c}'"
+        try:
+            assert (c.isalpha() and len(c) == 1), f"Q19-20: Expected 'character' to point to a single character of the alphabet, but instead it points to '{c}'"
+        except AttributeError as e:
+            raise AssertionError("Expected 'character' to reference a value of type <class 'str'> (String), but it does not.")
 
 
     @test()
