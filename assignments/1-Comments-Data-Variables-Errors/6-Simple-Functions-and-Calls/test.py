@@ -1,11 +1,12 @@
-identity='6a04041dd05a8f57273f7a5d1cb10aea5190becba231cb2be639b4016b5eca1bde6747a9d66aa785834ecb2d1d0dae777d990a1d00b4bf17e1743abb3c974d5b'
+identity='71d382fe51af4db67ab8984803d7221a53676eb8a4aac8aafac46cbdbd9abb278dd70f2590b04c09b518ef557506bbdf85dbe9de9679e99ce7781a11603d9cae'
 import subprocess,os,sys,hashlib
 from datetime import datetime
 from getpass import getuser
 from pathlib import Path
 import re
 
-assignment = "5-Operators"
+assignment = "6-Simple-Functions-and-Calls"
+inputval = "2"
 path = Path(__file__).parent
 thispath = Path(__file__)
 filepath = "main.py"
@@ -19,30 +20,70 @@ alltests = []
 def maketests(m=None):
     global filecontent
 
-    @test(
-        ("nothing", None),
-        ("switch", True),
-        ("num", 42),
-        ("percent",0.75),
-        ("name","Alice"),
-        ("fruits",["apple","banana","cherry"]),
-        ("coordinates",(10,20)),
-        ("person", {"name":"Bob","age":30})
-    )
-    def t1(var,val):
-        assert hasattr(m,var), f"Expected a defined variable named '{var}', but was not found."
-        assert getattr(m,var) == val, f"Expected '{var}' to point to {val} , but it does not."
+    def isfunction(qnum,name):
 
-    alltests.append(t1)
-    alltests.append(t2)
-    alltests.append(t3)
-    alltests.append(t4)
-    alltests.append(t5)
-    alltests.append(t6)
-    alltests.append(t7)
-    alltests.append(t8)
-    alltests.append(t9)
-    alltests.append(t10)
+        assert hasattr(m,name), f"Q{qnum}: Did you define a function named {name}? Did you use the 'def' keyword? Did you use parenthesis?"
+        assert callable(getattr(m,name)), f"Q{qnum}: Expected {name} to be a function, but it is not." 
+
+        return True
+
+    def ismatch(pattern,feedback):
+        global filecontent
+        assert re.search(pattern, filecontent), feedback
+
+    @test()
+    def t1a():
+        n = 1; fun = "add"
+        isfunction(n,fun)
+        ismatch(
+            r"def\s*add\s*\(\s*a\s*,\s*b\s*\):", 
+            f"Q{n}: Is your definition written correcly? Does '{fun}' have parameters 'a' and 'b'?"
+        )
+        alltests.append(t1b)
+        alltests.append(t2a)
+
+    @test(
+        (3, 1, 2),
+        (0, 0, 0),
+        (4, -1, 5),
+        (300, 100, 200),
+        (-75, -50, -25),
+    )
+    def t1b(*vals):
+        n = 1
+        fun = "add"
+        assert vals[0] == getattr(m,fun)(vals[1],vals[2]), f"Q{n}: Called {fun}({vals[1]},{vals[2]}). Expected {vals[0]}, but got {getattr(m,fun)(vals[1],vals[2])} instead."
+        
+
+
+    @test()
+    def t2a():
+        n = 2; fun = "add"
+        ismatch(
+            r"twosum\s*=\s*add\(\s*6\s*,\s*4\s*\)",
+            f"Q{n}: Did you call 'add' with the parameters 6 and 4? Are 6 and 4 inside the parenthesis and separated by a comma?"
+            "Did assign 'twosum' to the 'add' call?"
+        )
+
+        ismatch(
+            r"print\(\s*twosum\s*\)",
+            f"Q{n}: Did you print 'twosum'?"
+        )
+
+
+
+
+    alltests.append(t1a)
+    
+    # alltests.append(t2a)
+    # alltests.append(t3a)
+    # alltests.append(t4)
+    # alltests.append(t5)
+    # alltests.append(t6)
+    # alltests.append(t7)
+    # alltests.append(t8)
+    # alltests.append(t9)
+    # alltests.append(t10)
     # alltests.append(t11)
     # alltests.append(t12)
 
@@ -73,7 +114,7 @@ def checkintegrity():
         sys.exit()
 
 def checkforsyntaxerrors():
-    change_inputfunction()
+    change_inputfunction(inputval)
     if os.name == 'posix':
         command = ["python3",filepath]
 
@@ -114,27 +155,29 @@ def test(*params):
                 try:
                     function()
                     numpassed += 1
-                    report.append(f"\u2705 Test {num} Passed\n")
+                    # report.append(f"\u2705 Test {num} Passed\n")
                 except AssertionError as e:
                     numfailed +=1
-                    report.append(f"\u274C Test {num} Failed :\n {str(e)}\n")
+                    # report.append(f"\u274C Test {num} Failed :\n {str(e)}\n")
+                    report.append(f"\u274C Test Failed :\n {str(e)}\n")
             
             for param in params:
                 num+=1
                 try:
                     function(*param)
                     numpassed += 1
-                    report.append(f"\u2705 Test {num} Passed\n")
+                    # report.append(f"\u2705 Test {num} Passed\n")
                 except AssertionError as e:
                     numfailed +=1
-                    report.append(f"\u274C Test {num} Failed :\n {str(e)}\n")
+                    # report.append(f"\u274C Test {num} Failed :\n {str(e)}\n")
+                    report.append(f"\u274C Test Failed :\n {str(e)}\n")
         return wrapper
     return decorator
 
 def runtests():
     checkintegrity()
     try:
-        change_inputfunction()
+        change_inputfunction(inputval)
         import main
     except (ModuleNotFoundError,FileNotFoundError):
         print("File not found. 'main.py' does not exist.")
@@ -147,7 +190,7 @@ def runtests():
         except Exception as e:
             print(e)
     
-    change_inputfunction()
+    change_inputfunction(inputval)
     maketests(main)
 
     for test in alltests:
@@ -168,13 +211,11 @@ def assess():
         passpercent = 0
         failpercent = 0
 
-    report.append("\n")
-    if numpassed:
-        report.insert(0,f"Tests Passed \u2705: {numpassed} : {passpercent}%\n")
-    if numfailed:
-        report.insert(0,f"Tests Failed \u274C: {numfailed} : {failpercent}%\n")
 
-    report.insert(0,"\n")
+    if numpassed:
+        report.insert(0,f"[ Tests Passed \u2705: {numpassed} : {passpercent}% ]\n")
+    if numfailed:
+        report.insert(0,f"[ Tests Failed \u274C: {numfailed} : {failpercent}% ]\n")
 
     report.insert(0,f"[ TIME: {str(datetime.now())} ]\n")
     report.insert(0,f"[ ASSIGNMENT: {assignment} ]\n")
@@ -193,7 +234,7 @@ def assess():
 def printreport():
     clear()
     for r in report:
-        if "Failed" in r:
+        if "Test Failed" in r:
             print(r)
         else:
             print(r.replace("\n",""))

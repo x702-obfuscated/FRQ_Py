@@ -1,0 +1,101 @@
+[ All assignment code should be written inside of the 'main.py' file.        ]
+[ In VS Code use CTRL + J to open the terminal.                              ]
+[ In the terminal type 'python main.py' to execute your code.                ]
+[ In the terminal type 'python test.py' to test your code for correctness.   ]
+
+[ Simple Functions and Calls : Challenges                                               ]
+
+
+[1.]    Define a function with the name 'add' that has two parameters one named 'a', and one named 'b'.
+        The function should return the sum of 'a' and 'b'
+
+[2.]    Call the 'add' function that you just defined provide 6 as the first argument, and 4 as the second argument.
+        Declare a variable named 'twosum' and assign it to the result of the 'add' function call
+        Print out the value of 'twosum'
+
+
+[3.]    Define a function with the name 'subtract' that has two parameters one named 'minuend', and one named 'subtrahend'.
+        The function should return the difference of 'minuend' and 'subtrahend'
+
+[4.]    Call the 'divide' function and provide 65536 as the first argument, and provide 1024 as the second argument.
+        Declare a variable named 'twoquotient' and assign it to the result of the 'divide' function call. 
+        Print out the value of 'twoquotient'
+
+
+[5.]    Define a function with the name 'multiply' that has two parameters one named 'x', and one named 'y'.
+        The function should return the product of 'x' and 'y'
+
+[6.]    Call the 'multiply' function and provide 128 as the first argument, and provide 8 as the second argument.
+        Declare a variable named 'twoproduct' and assign it to the result of the 'multiply' function call. 
+        Print out the value of 'twoproduct'
+
+
+[7.]    Define a function with the name 'divide' that has two parameters one named 'dividend', and one named 'divisor'.
+        The function should return the quotient of 'dividend' and 'divisor'
+
+[8.]    Call the 'divide' function and provide 65536 as the first argument, and provide 1024 as the second argument.
+        Declare a variable named 'twoquotient' and assign it to the result of the 'divide' function call. 
+        Print out the value of 'twoquotient'
+
+
+[9.]    Define a function with the name 'concatenate' that has two parameters one named 'front_half', and one named 'back_half'.
+        The function should return 'front_half' concatenated with 'back_half'.
+
+[10.]   Call the 'concatenate' function and provide "It means " as the first argument, and provide "to join together." as the second argument.
+        Declare a variable named 'joined' and assign it to the result of the 'concatenate' function call. 
+        Print out the value of 'joined'
+
+
+[11.]   Using a single print call and without using the 'sep' parameter, print out the following values on the same line with a single space in between.
+        "Its"
+        "not"
+        "a"
+        "bug"
+        "its"
+        "a"
+        "feature"
+
+
+[12.]   Using a single print statement for each string value below, print all values on the same output line.
+        "Its "
+        "a "
+        "twist "
+        "ENDing."
+
+
+
+[13.]   Using a single print call, print out the following values on the same line separated by a pipe character "|" (Hint: look above the ENTER key on your keyboard.)
+            "First"
+            "Second"
+            "Third"
+            "Fourth"
+
+
+[14.]   Write a python input statement that:
+            1. prompts the user to "Enter a number:\n"
+            2. converts the input into an integer
+            3. stores the integer in a variable named 'num'
+        
+            1-3 should all be on the same line in the same statement.
+        
+        Print out the value of  num multiplied by 5 to the console.
+
+
+
+[15.]   Write a python input statement that:
+            1. prompts the user to "Enter a number:\n"
+            2. converts the input into a float
+            3. stores the integer in a variable named 'flo'
+            
+            1-3 should all be on the same line in the same statement.
+        
+        Print out the value of  flo multiplied by 3.14  to the console.
+        
+[16.]   Write a separate Python print statement that prints out the length of the following strings:
+        "abcdefghijklmnopqrstuvwxyz" 
+        "a b c d e f g h i j k l m n o p q r s t u v w x y z "
+
+        THINK ABOUT IT: Why is the length different?
+
+
+
