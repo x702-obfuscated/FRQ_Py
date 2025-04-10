@@ -17,9 +17,9 @@
 [3.]    Define a function with the name 'subtract' that has two parameters one named 'minuend', and one named 'subtrahend'.
         The function should return the difference of 'minuend' and 'subtrahend'
 
-[4.]    Call the 'divide' function and provide 65536 as the first argument, and provide 1024 as the second argument.
-        Declare a variable named 'twoquotient' and assign it to the result of the 'divide' function call. 
-        Print out the value of 'twoquotient'
+[4.]    Call the 'subtract' function and provide 1024 as the first argument, and provide 512 as the second argument.
+        Declare a variable named 'twodiff' and assign it to the result of the 'subtract' function call. 
+        Print out the value of 'twodiff'
 
 
 [5.]    Define a function with the name 'multiply' that has two parameters one named 'x', and one named 'y'.
@@ -56,11 +56,13 @@
         "feature"
 
 
-[12.]   Using a single print statement for each string value below, print all values on the same output line.
+[12.]   Using a separate print statement for each string value below, print all values on the same output line with no extra spaces.
         "Its "
         "a "
         "twist "
         "ENDing."
+
+        None of these print calls should result in the cursor moving to the next line. 
 
 
 
