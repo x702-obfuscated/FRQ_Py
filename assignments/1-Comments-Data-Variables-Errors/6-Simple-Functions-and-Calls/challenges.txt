@@ -22,47 +22,26 @@
         Print out the value of 'twoquotient'
 
 
-<<<<<<< HEAD
 [5.]    Define a function with the name 'multiply' that has two parameters one named 'x', and one named 'y'.
         The function should return the product of 'x' and 'y'
 
 [6.]    Call the 'multiply' function and provide 128 as the first argument, and provide 8 as the second argument.
-=======
-[5.]     Define a function with the name 'multiply' that has two parameters one named 'x', and one named 'y'.
-        The function should return the product of 'x' and 'y'
-
-[6.]     Call the 'multiply' function and provide 128 as the first argument, and provide 8 as the second argument.
->>>>>>> 771e655ff5e1ab5a730700de0ef204215f334311
         Declare a variable named 'twoproduct' and assign it to the result of the 'multiply' function call. 
         Print out the value of 'twoproduct'
 
 
-<<<<<<< HEAD
 [7.]    Define a function with the name 'divide' that has two parameters one named 'dividend', and one named 'divisor'.
         The function should return the quotient of 'dividend' and 'divisor'
 
 [8.]    Call the 'divide' function and provide 65536 as the first argument, and provide 1024 as the second argument.
-=======
-[7.]     Define a function with the name 'divide' that has two parameters one named 'dividend', and one named 'divisor'.
-        The function should return the quotient of 'dividend' and 'divisor'
-
-[8.]     Call the 'divide' function and provide 65536 as the first argument, and provide 1024 as the second argument.
->>>>>>> 771e655ff5e1ab5a730700de0ef204215f334311
         Declare a variable named 'twoquotient' and assign it to the result of the 'divide' function call. 
         Print out the value of 'twoquotient'
 
 
-<<<<<<< HEAD
 [9.]    Define a function with the name 'concatenate' that has two parameters one named 'front_half', and one named 'back_half'.
         The function should return 'front_half' concatenated with 'back_half'.
 
 [10.]   Call the 'concatenate' function and provide "It means " as the first argument, and provide "to join together." as the second argument.
-=======
-[9.]     Define a function with the name 'concatenate' that has two parameters one named 'front_half', and one named 'back_half'.
-        The function should return 'front_half' concatenated with 'back_half'.
-
-[10.]     Call the 'concatenate' function and provide "It means " as the first argument, and provide "to join together." as the second argument.
->>>>>>> 771e655ff5e1ab5a730700de0ef204215f334311
         Declare a variable named 'joined' and assign it to the result of the 'concatenate' function call. 
         Print out the value of 'joined'
 
