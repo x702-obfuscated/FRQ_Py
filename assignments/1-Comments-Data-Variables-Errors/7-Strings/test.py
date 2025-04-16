@@ -1,4 +1,4 @@
-identity='1cfe22920ef0043cfc8c5f3c203b5287428c64b849b2fff0b9e9494a17ebf818a97dbb298db459099f15d21fa1c98d46c59c857facf78ceac09a9d3ff8de0f10'
+identity='ff4d806c991a6120b5fef64186624bcca6224b38c138de9889f4a1809d4dd1dff712eff077c6c6bded06701982fc24c5f72a86e8a31bb312affd888dd4fe295f'
 import subprocess,os,sys,hashlib
 from datetime import datetime
 from getpass import getuser
@@ -31,235 +31,277 @@ def maketests(m=None):
         global filecontent
         assert re.search(pattern, filecontent), feedback
 
-    @test((
-    (3, 1, 2),
-    (0, 0, 0),
-    (4, -1, 5),
-    (300, 100, 200),
-    (-75, -50, -25),
-    ))
-    def t1(*tests):
-        n = 1; fun = "add"
-        isfunction(n,fun)
+
+    @test()
+    def t1():
         ismatch(
-            r"def\s*add\s*\(\s*a\s*,\s*b\s*\):", 
-            f"Q{n}: Is your definition written correctly? Does '{fun}' have parameters 'a' and 'b'?"
+            r"print\(\s*[\"']ONE\\nTWO\\nTHREE[\"']\s*\)",
+            "Q1: Did you replace the spaces with newline characters? Did you use a single string? Did you print? Check capitalization and spacing."
         )
-
-        for t in tests:
-            assert t[0] == getattr(m,fun)(t[1],t[2]), f"Q{n}: Called {fun}({t[1]},{t[2]}). Expected {t[0]}, but got {getattr(m,fun)(t[1],t[2])} instead."
-
-        
+   
     @test()
     def t2():
-        n = 2; fun = "add"; var = "twosum"; p1 = "a"; p2 ="b"; a1 = 6 ; a2 = 4
         ismatch(
-            rf"{var}\s*=\s*{fun}\(\s*{a1}\s*,\s*{a2}\s*\)",
-            f"Q{n}: Did you call '{fun}' with the arguments {a1} and {a2}? Are {a1} and {a2} inside the parenthesis and separated by a comma? "
-            f"Did you assign '{var}' to the '{fun}' call?"
+            r"print\(\s*[\"']C:\\\\Users\\\\USERNAME\\\\Desktop[\"']\s*\)",
+            "Q2: Did you use the correct escape character in order to use \\ in a string? Did you print? Did you use a single string? Check capitilization and spacing."
         )
 
+    @test()
+    def t3():
         ismatch(
-            rf"print\(\s*{var}\s*\)",
-            f"Q{n}: Did you print '{var}'?"
+            r"print\(\s*[\"']\\[\"']Where there\\?'s code. There\\?'s a bug.\\[\"'][\"']\s*\)",
+            "Q3, Did you use the correct escape character? Do the quotation marks print out? DId you use a single string? Check capitilization and spacing."
         )
-
-    @test((
-    (1, 3, 2),
-    (0, 5, 5),
-    (-3, 2, 5),
-    (100, 300, 200),
-    (-25, -50, -25),
-    ))
-    def t3(*tests):
-        n = 3; fun = "subtract"; p1 = "minuend"; p2="subtrahend"
-        isfunction(n,fun)
-        ismatch(
-            rf"def\s*{fun}\s*\(\s*{p1}\s*,\s*{p2}\s*\):", 
-            f"Q{n}: Is your definition written correctly? Does '{fun}' have parameters '{p1}' and '{p2}'?"
-        )
-
-        for t in tests:
-            assert t[0] == getattr(m,fun)(t[1],t[2]), f"Q{n}: Called {fun}({t[1]},{t[2]}). Expected {t[0]}, but got {getattr(m,fun)(t[1],t[2])} instead."
 
     @test()
     def t4():
-        n = 4; fun = "subtract"; var = "twodiff"; p1 = "minuend"; p2 ="subtrahend"; a1 = 1024 ; a2 = 512
-        ismatch(
-            rf"{var}\s*=\s*{fun}\(\s*{a1}\s*,\s*{a2}\s*\)",
-            f"Q{n}: Did you call '{fun}' with the arguments {a1} and {a2}? Are {a1} and {a2} inside the parenthesis and separated by a comma? "
-            f"Did you assign '{var}' to the '{fun}' call?"
-        )
+        assert hasattr(m, "character"), "Q4: Is 'character' defined?"
+        assert isinstance(getattr(m,"character"),str), "Q4: 'character' should reference a string, but it does not." 
+        assert len(getattr(m,"character")) == 1, "Q4: 'character' should reference a single symbol, but it does not."
 
         ismatch(
-            rf"print\(\s*{var}\s*\)",
-            f"Q{n}: Did you print '{var}'?"
+            r"int_value\s*\=\s*ord\(\s*character\s*\)",
+            "Q4: Did you use the ord() function call? Did you use 'character'? Did you assign the result to 'int_value'."
         )
 
+        assert hasattr(m,"int_value"), "Q4: Is 'int_value' defined?"
+        assert getattr(m,"int_value") == ord(getattr(m,"character")), "Q4:'int_value' does not store the correct value, did you convert with ord()?"
 
-    
-    @test((
-    (6, 3, 2),
-    (25, 5, 5),
-    (10, 2, 5),
-    (60000, 300, 200),
-    (1250, -50, -25),
-    ))
-    def t5(*tests):
-        n = 5; fun = "multiply"; p1 = "x"; p2="y"
-        isfunction(n,fun)
         ismatch(
-            rf"def\s*{fun}\s*\(\s*{p1}\s*,\s*{p2}\s*\):", 
-            f"Q{n}: Is your definition written correctly? Does '{fun}' have parameters '{p1}' and '{p2}'?"
+            r"print\(\s*int_value\s*\)",
+            "Q4: Did you print out 'int_value'? Did you use the variable name? Make sure 'int_value' is not in quotes. Check capitalization and spaces."
         )
 
-        for t in tests:
-            assert t[0] == getattr(m,fun)(t[1],t[2]), f"Q{n}: Called {fun}({t[1]},{t[2]}). Expected {t[0]}, but got {getattr(m,fun)(t[1],t[2])} instead."
+    @test()
+    def t5():
+        assert hasattr(m, "int_value"), "Q5: Is 'int_value' defined?"
+        assert isinstance(getattr(m,"int_value"),int), "Q5: 'int_value' should reference an integer, but it does not."
+
+        ismatch(
+            r"bin_value\s*=\s*bin\(\s*int_value\s*\)",
+            "Q5: Did you use the bin() function call? Did you use 'int_value'? Did you assign the result to 'bin_value'."
+        )
+
+        assert hasattr(m,"bin_value"), "Q5: Is 'bin_value' defined?"
+        assert getattr(m,"bin_value") == bin(getattr(m,"int_value")), "Q5:'bin_value' does not store the correct value, did you convert with bin()?"
+
+        ismatch(
+            r"print\(\s*bin_value\s*\)",
+            "Q5: Did you print out 'bin_value'? Did you use the variable name? Make sure 'bin_value' is not in quotes. Check capitalization and spaces."
+        )
+
 
     @test()
     def t6():
-        n = 6; fun = "multiply"; var = "twoproduct"; p1 = "x"; p2 ="y"; a1 = 128 ; a2 = 8
-        ismatch(
-            rf"{var}\s*=\s*{fun}\(\s*{a1}\s*,\s*{a2}\s*\)",
-            f"Q{n}: Did you call '{fun}' with the arguments {a1} and {a2}? Are {a1} and {a2} inside the parenthesis and separated by a comma? "
-            f"Did you assign '{var}' to the '{fun}' call?"
-        )
+        assert hasattr(m, "int_value"), "Q6: Is 'int_value' defined?"
+        assert isinstance(getattr(m,"int_value"),int), "Q6: 'int_value' should reference an integer, but it does not."
 
         ismatch(
-            rf"print\(\s*{var}\s*\)",
-            f"Q{n}: Did you print '{var}'?"
+            r"hex_value\s*=\s*hex\(\s*int_value\s*\)",
+            "Q6: Did you use the hex() function call? Did you use 'int_value'? Did you assign the result to 'hex_value'."
         )
 
-    @test((
-    (2, 4, 2),
-    (1, 5, 5),
-    (0, 0, 5),
-    (1.5, 300, 200),
-    (2, -50, -25),
-    ))
-    def t7(*tests):
-        n = 7; fun = "divide"; p1 = "dividend"; p2="divisor"
-        isfunction(n,fun)
+        assert hasattr(m,"hex_value"), "Q6: Is 'hex_value' defined?"
+        assert getattr(m,"hex_value") == hex(getattr(m,"int_value")), "Q6: 'hex_value' does not store the correct value, did you convert with bin()?"
+
         ismatch(
-            rf"def\s*{fun}\s*\(\s*{p1}\s*,\s*{p2}\s*\):", 
-            f"Q{n}: Is your definition written correctly? Does '{fun}' have parameters '{p1}' and '{p2}'?"
+            r"print\(\s*hex_value\s*\)",
+            "Q6: Did you print out 'hex_value'? Did you use the variable name? Make sure 'hex_value' is not in quotes. Check capitalization and spaces."
         )
 
-        for t in tests:
-            assert t[0] == getattr(m,fun)(t[1],t[2]), f"Q{n}: Called {fun}({t[1]},{t[2]}). Expected {t[0]}, but got {getattr(m,fun)(t[1],t[2])} instead."
+    
+    @test()
+    def t7():
+        assert hasattr(m, "int_value"), "Q7: Is 'int_value' defined?"
+        assert isinstance(getattr(m,"int_value"),int), "Q7: 'int_value' should reference an integer, but it does not."
+
+        ismatch(
+            r"char_value\s*=\s*chr\(\s*int_value\s*\)",
+            "Q7: Did you use the chr() function call? Did you use 'int_value'? Did you assign the result to 'char_value'."
+        )
+
+        assert hasattr(m,"char_value"), "Q7: Is 'char_value' defined?"
+        assert getattr(m,"char_value") == chr(getattr(m,"int_value")), "Q7: 'char_value' does not store the correct value, did you convert with chr()?"
+
+        ismatch(
+            r"print\(\s*char_value\s*\)",
+            "Q7: Did you print out 'char_value'? Did you use the variable name? Make sure 'char_value' is not in quotes. Check capitalization and spaces."
+        )
+
 
     @test()
     def t8():
-        n = 8; fun = "divide"; var = "twoquotient"; p1 = "dividend"; p2 ="divisor"; a1 = 65536 ; a2 = 1024
+        n = "Q8:"
+        for elem in ['first', 'second', 'third']:
+            assert hasattr(m,elem), f"{n} '{elem}' is not defined."
+            assert isinstance(getattr(m,elem),str), f"{n} '{elem}' should reference a string, but it does not."
+        
         ismatch(
-            rf"{var}\s*=\s*{fun}\(\s*{a1}\s*,\s*{a2}\s*\)",
-            f"Q{n}: Did you call '{fun}' with the arguments {a1} and {a2}? Are {a1} and {a2} inside the parenthesis and separated by a comma? "
-            f"Did you assign '{var}' to the '{fun}' call?"
+            r"print\(\s*first\s*\+\s*[\"'] [\"']\s*\+\s*second\s*\)",
+            f"{n} Did you use the variables 'first' and 'second'? Did you concatenate inside the print() call? Did you use the correct operator?"
         )
-        ismatch(
-            rf"print\(\s*{var}\s*\)",
-            f"Q{n}: Did you print '{var}'?"
-        )
-
-    @test((
-    ("hello world", "hello ", "world"),
-    ("123abc", "123", "abc"),
-    ("testcase", "test", "case"),
-    ("foobar", "foo", "bar"),
-    ("2025-04-09", "2025-", "04-09"),
-    ))
-    def t9(*tests):
-        n = 9; fun = "concatenate"; p1 = "front_half"; p2="back_half"
-        isfunction(n,fun)
-        ismatch(
-            rf"def\s*{fun}\s*\(\s*{p1}\s*,\s*{p2}\s*\):", 
-            f"Q{n}: Is your definition written correctly? Does '{fun}' have parameters '{p1}' and '{p2}'?"
-        )
-
-        for t in tests:
-            assert t[0] == getattr(m,fun)(t[1],t[2]), f"Q{n}: Called {fun}({t[1]},{t[2]}). Expected {t[0]}, but got {getattr(m,fun)(t[1],t[2])} instead."
 
     @test()
+    def t9():
+        n = "Q9:"
+        for elem in ['first', 'second', 'third']:
+            assert hasattr(m,elem), f"{n} '{elem}' is not defined."
+            assert isinstance(getattr(m,elem),str), f"{n} '{elem}' should reference a string, but it does not."
+        
+        ismatch(
+            r"print\(\s*third\s*\*\s*10\s*\)",
+            f"{n} Did you use the variable 'third'? Did you duplicate inside the print() call? Did you duplicate 10 times? Did you use the correct operator?"
+        )
+
+    
+    @test()
     def t10():
-        n = 10; fun = "concatenate"; var = "joined"; p1 = "front_half"; p2 ="back_half"; a1 = "\"It means \"" ; a2 = "\"to join together.\""
+        n = "Q10:" 
+        assert hasattr(m,"text"), f"{n} 'text' is not defined."
+        assert isinstance(getattr(m,"text"),str), f"{n} 'text' should reference a string, but it does not."
+        
         ismatch(
-            rf"{var}\s*=\s*{fun}\(\s*{a1}\s*,\s*{a2}\s*\)",
-            f"Q{n}: Did you call '{fun}' with the arguments {a1} and {a2}? Are {a1} and {a2} inside the parenthesis and separated by a comma? "
-            f"Did you assign '{var}' to the '{fun}' call?"
+            r"text\s*\+=\s*[\"']abcde[\"']",
+            f"{n} Did you use the correct operator? Did you only use 'text' once when concatenating and assigning? Did you concatenate and assign in the same statement? Check capitalization, spelling, and spaces."
         )
-
-        ismatch(
-            rf"print\(\s*{var}\s*\)",
-            f"Q{n}: Did you print '{var}'?"
-        )
-
 
     @test()
     def t11():
+        n="Q11:"
+        assert hasattr(m,"strang"), f"{n} 'stang' is not defined."
+        assert isinstance(getattr(m,"strang"),str), f"{n} 'strang' should reference a string, but it does not."
         ismatch(
-            r"print\(\s*[\"']Its[\"']\s*,\s*[\"']not[\"']\s*,\s*[\"']a[\"']\s*,\s*[\"']bug[\"']\s*,\s*[\"']its[\"']\s*,\s*[\"']a[\"']\s*,\s*[\"']feature[\"']\s*\)",
-            f"Q11: Did you use only one print call? Did you use commas (,) ? Make sure you are not using 'sep'. Check capitalization and spaces."
-                
+            r"strang\s*\*=\s*5",
+            f"{n} Did you use the correct operator? Did you only use 'strang' once when concatenating and assigning? Did you concatenate and assign in the same statement? Check capitalization, spelling, and spaces."
         )
-    
+
+
     @test()
     def t12():
-        words = ("Its ", "a ", "twist ", "ENDing.")
-
-        for word in words:
-            ismatch(
-                r"print\(\s*[\"']"f"{word}"r"[\"']\s*,\s*end\s*=\s*"r"[\"'][\"']\s*\)",
-                f"Q12: Did you use a separate print call? Did you use commas (,) ? Are you setting the 'end' parameter? Check capitalization and spaces." 
-            )
+        n = "Q12:"
+        ismatch(
+            r"print\(\s*[\"']hello[\"']\s*==\s*[\"']Hello[\"']\s*\)",
+            f"{n} Did you use the equality comparision operator? Is \"hello\" on the left and \"Hello\" on the right of the operator? Did you print?"
+        )
 
     @test()
     def t13():
+        n = "Q13:"
+        for elem in ['alpha', 'beta', 'gamma']:
+            assert hasattr(m,elem), f"{n} '{elem}' is not defined."
+            assert isinstance(getattr(m,elem),str), f"{n} '{elem}' should reference a string, but it does not."
+        
         ismatch(
-            r"print\(\s*[\"']First[\"']\s*,\s*[\"']Second[\"']\s*,\s*[\"']Third[\"']\s*,\s*[\"']Fourth[\"']\s*,\s*sep\s*=\s*[\"']\|[\"']\s*\)",
-            f"Q13: Did you use only one print call? Did you use commas (,) ? Are you setting the 'sep' parameter? Check capitalization and spaces."
+            r"print\(\s*alpha\s*\!=\s*beta\s*\)",
+            f"{n} Did you use the not equal comparision operator? Is 'alpha' on the left and 'beta' on the right of the operator? Did you print?"
         )
 
     @test()
     def t14():
-        ismatch(
-            r"int\(\s*input\(\s*[\"']Enter a number:\\n[\"']\s*\)\s*\)",
-            f"Q14: Did you use input()? Did you include the correct prompt 'Enter a number:\\n'? Did you convert to an integer with int()? Check capitalization and spaces."
-        )
-
-        assert hasattr(m, "num"), "Q14: Did you define a variable named 'num'?"
-        assert getattr(m, "num") == 2 , "Q14: Did you assign 'num' to your nested int(input()) call?"
+        n = "Q14:"
+        for elem in ['alpha', 'beta', 'gamma']:
+            assert hasattr(m,elem), f"{n} '{elem}' is not defined."
+            assert isinstance(getattr(m,elem),str), f"{n} '{elem}' should reference a string, but it does not."
         
         ismatch(
-            r"print\(\s*num\s*\*\s*5\s*\)",
-            "Q14: Did you print 'num' multiplied by 5? Did you use the multiplication operator? Don't use quotes(\" or ')."
+            r"print\(\s*beta\s*\>\s*gamma\s*\)",
+            f"{n} Did you use the greater than comparision operator? Is 'beta' on the left and 'gamma' on the right of the operator? Did you print?"
         )
 
+    
     @test()
     def t15():
-        ismatch(
-            r"float\(\s*input\(\s*[\"']Enter a number:\\n[\"']\s*\)\s*\)",
-            f"Q15: Did you use input()? Did you include the correct prompt 'Enter a number:\\n'? Did you convert to a float with float()? Check capitalization and spaces."
-        )
-
-        assert hasattr(m, "num"), "Q15: Did you define a variable named 'flo'?"
-        assert getattr(m, "num") == 2.0 , "Q15: Did you assign 'flo' to your nested float(input()) call?"
+        n = "Q15:"
+        for elem in ['alpha', 'beta', 'gamma']:
+            assert hasattr(m,elem), f"{n} '{elem}' is not defined."
+            assert isinstance(getattr(m,elem),str), f"{n} '{elem}' should reference a string, but it does not."
         
         ismatch(
-            r"print\(\s*flo\s*\*\s*3.14\s*\)",
-            "Q15: Did you print 'flo' multiplied by 3.14? Did you use the multiplication operator? Don't use quotes(\" or ')."
-        )
-    
+            r"print\(\s*beta\s*\<\s*gamma\s*\)",
+            f"{n} Did you use the less than comparision operator? Is 'beta' on the left and 'gamma' on the right of the operator? Did you print?"
+        )   
+
 
     @test()
     def t16():
+        n="Q16:"
+        assert hasattr(m,"alphabet"), f"{n} 'alphabet' is not defined."
+        assert isinstance(getattr(m,"alphabet"),str), f"{n} 'alphabet' should reference a string, but it does not."
+        assert getattr(m,"alphabet") == "ABCDEFGHIJKLMNOPQRSTUVWXYZ", f"{n} 'alphabet' should reference \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\""
         ismatch(
-            r"print\(\s*len\(\s*[\"']abcdefghijklmnopqrstuvwxyz[\"']\s*\)\s*\)",
-            "Q16: Did you print? Did you use the correct length function call? Did you use quotes (\" or ')? Did you use \"abcdefghijklmnopqrstuvwxyz\" as an argument for the length function call?"
+            r"print\(\s*alphabet\[\s*3\s*\]\s*\)",
+            f"{n} Did you use subscripting []? Did you use the correct positive index? What number do indexes start with? Did you print?"
         )
+
+    @test()
+    def t17():
+        n = "Q17:"
+        assert hasattr(m,"alphabet"), f"{n} 'alphabet' is not defined."
+        assert isinstance(getattr(m,"alphabet"),str), f"{n} 'alphabet' should reference a string, but it does not."
+        assert getattr(m,"alphabet") == "ABCDEFGHIJKLMNOPQRSTUVWXYZ", f"{n} 'alphabet' should reference \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\""
         ismatch(
-            r"print\(\s*len\(\s*[\"']a b c d e f g h i j k l m n o p q r s t u v w x y z [\"']\s*\)\s*\)",
-            "Q16: Did you print? Did you use the correct length function call? Did you use quotes (\" or ')? Did you use \"a b c d e f g h i j k l m n o p q r s t u v w x y z \" as an argument for the length function call?"
-        )
+            r"print\(\s*alphabet\[\s*\-3\s*\]\s*\)",
+            f"{n} Did you use subscripting []? Did you use the negative correct index? What number do indexes start with? Did you print?"
+        )  
+
+    @test()
+    def t18():
+        n = "Q18:"
+        assert hasattr(m,"alphabet"), f"{n} 'alphabet' is not defined."
+        assert isinstance(getattr(m,"alphabet"),str), f"{n} 'alphabet' should reference a string, but it does not."
+        assert getattr(m,"alphabet") == "ABCDEFGHIJKLMNOPQRSTUVWXYZ", f"{n} 'alphabet' should reference \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\""
+        ismatch(
+            r"print\(\s*alphabet\[\s*\:\s*7\s*\]\s*\)",
+            f"{n} Did you use subscripting []? Did you use slicing [:]? Did you use the positive correct index? What number do indexes start with? Did you print?"
+        ) 
+
+    @test()
+    def t19():
+        n = "Q19:"
+        assert hasattr(m,"alphabet"), f"{n} 'alphabet' is not defined."
+        assert isinstance(getattr(m,"alphabet"),str), f"{n} 'alphabet' should reference a string, but it does not."
+        assert getattr(m,"alphabet") == "ABCDEFGHIJKLMNOPQRSTUVWXYZ", f"{n} 'alphabet' should reference \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\""
+        ismatch(
+            r"print\(\s*alphabet\[\s*\-8\s*:\s*\]\s*\)",
+            f"{n} Did you use subscripting []? Did you use slicing [:]? Did you use the negative correct index? What number do indexes start with? Did you print?"
+        ) 
+
+    
+    @test()
+    def t20():
+        n = "Q20:"
+        assert hasattr(m,"alphabet"), f"{n} 'alphabet' is not defined."
+        assert isinstance(getattr(m,"alphabet"),str), f"{n} 'alphabet' should reference a string, but it does not."
+        assert getattr(m,"alphabet") == "ABCDEFGHIJKLMNOPQRSTUVWXYZ", f"{n} 'alphabet' should reference \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\""
+        ismatch(
+            r"print\(\s*alphabet\[\s*11\s*:\s*18\s*\]\s*\)",
+            f"{n} Did you use subscripting []? Did you use slicing [:]? Did you use the  correct positive indexes? What number do indexes start with? Did you print?"
+        ) 
+
+    @test()
+    def t21():
+        n = "Q21:"
+
+        assert hasattr(m,"alphabet"), f"{n} 'alphabet' is not defined."
+        assert isinstance(getattr(m,"alphabet"),str), f"{n} 'alphabet' should reference a string, but it does not."
+        assert getattr(m,"alphabet") == "ABCDEFGHIJKLMNOPQRSTUVWXYZ", f"{n} 'alphabet' should reference \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\""
+        ismatch(
+            r"print\(\s*len\(\s*alphabet\s*\)\s*\)",
+            f"{n} Did you use the variable 'alphabet'. Did you use the len() function? Did you print?"
+        ) 
+
+    @test()
+    def t22():
+        n = "Q22:"
+        assert hasattr(m,"alphabet"), f"{n} 'alphabet' is not defined."
+        assert isinstance(getattr(m,"alphabet"),str), f"{n} 'alphabet' should reference a string, but it does not."
+        assert getattr(m,"alphabet") == "ABCDEFGHIJKLMNOPQRSTUVWXYZ", f"{n} 'alphabet' should reference \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\""
+        ismatch(
+            r"print\(\s*len\(\s*alphabet\s*\)\s*-\s*1s*\)",
+            f"{n} Did you use the variable 'alphabet'. Did you use the len() function? Did you subtract 1? Did you print?"
+        ) 
+
+
 
     alltests.append(t1)
     alltests.append(t2)
@@ -277,6 +319,12 @@ def maketests(m=None):
     alltests.append(t14)
     alltests.append(t15)
     alltests.append(t16)
+    alltests.append(t17)
+    alltests.append(t18)
+    alltests.append(t19)
+    alltests.append(t20)
+    alltests.append(t21)
+    alltests.append(t22)
 
 def checkintegrity():
     hasher = hashlib.sha512()

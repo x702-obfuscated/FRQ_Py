@@ -7,13 +7,13 @@
 
 "A Constraint is a rule that tells you what you can or cannot do when solving a problem."
 
-[1.]    Print out the text "ONE TWO THREE" with a newline character between each word instead of spaces.
+[1.]    Print out the text "ONE TWO THREE" with a newline character between each word instead of a space.
         Constraints:
             You must use a single print statement.
             You must use a single string.
             Spaces should be manually replaced by newline characters.
 
-[2.]    Print out the string "C:\Users\USERNAME\Desktop"
+[2.]    Print out the file path --> "C:\Users\USERNAME\Desktop"
         Hint: Special Characters
         Constraints:
             You must use a single print statement
@@ -21,8 +21,9 @@
 
 
 [3.]    Print out --> "Where there's code. There's a bug."
-        Hint: Special Characters\
+        Hint: Special Characters
         Constraints:
+            Include the quotation marks in the output.
             You must use a single print statement. 
             You must use a single string.
 
@@ -30,7 +31,7 @@
 
 Pick any character and assign it to a variable named ‘character’.
 
-[4.]    Using a built-in function convert character into its integer value
+[4.]    Using a built-in function convert 'character' into its integer value
         Assign the result to a variable named 'int_value'.
         Print out the value of 'int_value'.
         Constraints:
@@ -54,121 +55,127 @@ Pick any character and assign it to a variable named ‘character’.
             'int_value' must be converted using a built-in function
 
 [7.]    Using built-in functions convert 'int_value' from question 4 into a character.
-        Assign the binary value to a variable named 'char_value'.
+        Assign the character value to a variable named 'char_value'.
         Print out the value of 'char_value'.
         Constraints:
             You must use only a single statement (one line) to convert 'int_value' and assign it to 'char_value'
             'int_value' must be converted using a built-in function
 
-[8.] compound concatenate
+Define 3 variables named, 'first', 'second', and 'third'. 
+Assign each of these 3 variables a string literal of your choice.
 
-[9.] compound duplicate
+[8.]    Write a code statement that concatenates 'first' and 'second' with a single space in between.
+        Print out the result.
+        Constraints:
+            You must use a single print statement
+            You must use concatentation in your answer
+            The space must be added and cannot already exist in 'first' or 'second'
 
-[10.] string equality comparision
+[9.]    Duplicate 'third' 10 times, and print the result.
+        Constraints:
+            You must use a single print statement
+            You must use duplication in your answer.
 
-[11.] return a single character
+[10.]   Create a variable named 'text' and assign it a string literal of your choice. 
+        Concatenate "abcde" and  the value of 'text' then assign 'text' to this new value. 
+        Hint: Compound Concatenation and assignment
+        Constraints:
+                You must use the variable 'text'
+                You may only use the variable 'text' once when concatenating and assigning.
+                You must concatenate and assign in the same statement
 
-[12.] slicing (substring)
-
-[13.] length
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'Strings'
-
-'1. Define a variable called "char" and set it to any character.'
-
-
-'2. Print three words on seperate lines using a single print statment and newline characters.'
-
-
-r'3. Print the absolute path to your "Desktop" directory. (Example: C:\Users\USERNAME\Desktop)'
+[11.]   Create a variable named 'strang' and assign it a string literal of your choice.
+        Duplicate 'strang' 5 times and assign 'strang' to the new value.
+        Hint: Compound Duplication and assignment
+        Constraints:
+            You must use the variable 'strang'
+            You may only use the variable 'strang' once when duplicating and assigning.
+            You must duplicate and assign in the same statement.
 
 
-'4. Print out "I can use the escape character" including the quotes.'
+[12.]   Write an expression to check if "hello" and "Hello" are equal.
+        Print the result of the expression. 
+        Constraints:
+            You must use only one print statement.
+            You must write the expression inside of the print statement.
 
 
-# You can change the value of 'letter' to test your code
-letter = "m"
-########################################################
-'''
-For 5 - 8 You must use the built in functions to convert. 
-          Assigning literal values will not be counted.
-'''
-
-'5. Define a variable called "decimal_value", and set its value to the decimal value of "letter".'
+Create 3 variables named: 'alpha', 'beta', and 'gamma'.
+Assign each of these 3 variables a string literal of your choice.
 
 
-'6. Define a variable called "hex_value", and set its value to the hexadecimal value of "letter". '
+[13.]   Write an expression to check if 'alpha' and 'beta' are NOT equal.
+        Print the result of the expression.
+        Constraints:
+            You must use only one print statement.
+            You must write the expression inside of the print statement.
 
 
-'7. Define a variable called "bin_value", and set its value to the binary value of "letter".'
+[14.]   Write an expression to check if 'beta' is lexicographically greater than 'gamma'.
+        Print the result of the expression.
+        Constraints:
+            You must use only one print statement.
+            You must write the expression inside of the print statement.
 
 
-'8. Define a variabled called "char_value", and set its value to the character value of 65.'
+[15.]   Write an expression to check if 'beta' is lexicographically less than 'gamma'.
+        Print the result of the expression.
+        Constraints:
+            You must use only one print statement.
+            You must write the expression inside of the print statement.
 
 
-'9 Print out a string literal that spans multiple lines without using the newline character.'
+
+Define a variable named 'alphabet' and assign it the value "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+[16.]   Print out the 4th character in 'alphabet' using subscripting. 
+        Constraints:
+            You must use the variable 'alphabet'
+            You must use subscripting to access the 4th character
+            You must use a single print statement
+
+[17.]   Print the 3rd to last character in 'alphabet' using subscripting and a negative index.
+        Constraints:
+            You must use the variable 'alphabet'
+            You must use subscripting.
+            You must use a negative index.
+            You must use a single print statement. 
+
+[18.]   Print a substring of 'alphabet' that contains the first 7 characters.
+        Constraints:
+            You must use the variable 'alphabet'
+            You must use slicing notation
+            You must use positive indexes
+            You must use default values if applicable
+            You must use a single print statement
+
+[19.]   Print a substring of 'alphabet' that contains the last 8 characters.
+        Constraints:
+            You must use the variable 'alphabet'
+            You must use slicing notation
+            You must use negative indexes
+            You must use default values if applicable
+            You must use a single print statement
 
 
-'10. Print out the type of the following data: "In the south it is pronounced strang.."'
+[20.]   Print a substring of 'alphabet' that contains only characters 11 through 17 inclusive.
+        Constraints:
+            You must use the variable 'alphabet'
+            You must use slicing notation
+            You must use positive indexes
+            You must use default values if applicable
+            You must use a single print statement
 
 
-#You can change the value of first, second, and third to test your code.
-first = "Application "; second = "Programming " ; third = "Interface"
-#######################################################################
+[21.]   Write a Python code statement that prints out the number of characters in 'alphabet'.
+        Constraints:
+            You must use the variable 'alphabet'
+            You must use the built-in function to determine the number of characters
+            
 
 
-'11. Concatenate and print "first", "second", and "third".'
-
-'12 Duplicate "second", 5 times. Print the result.'
-
-
-#You can change the value of first, second, and third to test your code.
-char_1 = "n" ; char_2 = "a" ; char_3 = "o"
-#######################################################################
-
-'13. Print an expression that checks if "char_1" is equal to "n".'
-
-'14. Print an expression that checks if "char_1" is not equal to "char_2".'
-
-
-'15. Print an expression that checks if "char_3" is lexicographically greater than "c".'
-
-
-'16. Print an expression that checks if "dog" is lexicographically smaller than "cat".'
-
-
-#You can change the value of text to test your code
-#text must store a string of >= 30 characters
-text = "Strings in Python are indexed."
-###################################################
-
-'17. Print the 4th character in "text".'
-
-'18. Print the 3rd to last character in "text" using negative indexing.'
-
-'19. Print any of the space characters in "text".'
-
-'20. Print a substring of "text" that contains only the first 7 characters.'
-
-'21. Print a substring of "text" that contains only the last 8 characters.'
-
-'22. Print a substring of "text" that contains only characters 11-17.'
-
-'23. Using negative indexing print a substring of "text" that contains only characters -8 through -4.'
-
-'24. Print the statement to determine number of characters in "text".'
-
-'25. Print out the expression to determine the last index of "text".'
+[22.]   Write a Python code statement that prints out the last positive index of 'alphabet'.
+        Constraints:
+            You must use the variable 'alphabet'
+            You must use the built-in function to determine the number of characters
+            The last index must be calculated from the number of characters
