@@ -1,0 +1,174 @@
+[ All assignment code should be written inside of the 'main.py' file.        ]
+[ In VS Code use CTRL + J to open the terminal.                              ]
+[ In the terminal type 'python main.py' to execute your code.                ]
+[ In the terminal type 'python test.py' to test your code for correctness.   ]
+
+[ Strings : Challenges                                               ]
+
+"A Constraint is a rule that tells you what you can or cannot do when solving a problem."
+
+[1.]    Print out the text "ONE TWO THREE" with a newline character between each word instead of spaces.
+        Constraints:
+            You must use a single print statement.
+            You must use a single string.
+            Spaces should be manually replaced by newline characters.
+
+[2.]    Print out the string "C:\Users\USERNAME\Desktop"
+        Hint: Special Characters
+        Constraints:
+            You must use a single print statement
+            You must use a single string
+
+
+[3.]    Print out --> "Where there's code. There's a bug."
+        Hint: Special Characters\
+        Constraints:
+            You must use a single print statement. 
+            You must use a single string.
+
+
+
+Pick any character and assign it to a variable named ‘character’.
+
+[4.]    Using a built-in function convert character into its integer value
+        Assign the result to a variable named 'int_value'.
+        Print out the value of 'int_value'.
+        Constraints:
+            You must use only a single statement (one line) to convert 'character' and assign it to 'int_value'
+            'character' must be converted using a  built-in function
+
+
+[5.]    Using built-in functions convert 'int_value' from question 4 into binary.
+        Assign the binary value to a variable named 'bin_value'.
+        Print out the value of 'bin_value'.
+        Constraints:
+            You must use only a single statement (one line) to convert 'int_value' and assign it to 'bin_value'
+            'int_value' must be converted using a built-in function
+
+
+[6.]    Using built-in functions convert 'int_value' from question 4 into hexadecimal.
+        Assign the binary value to a variable named 'hex_value'.
+        Print out the value of 'hex_value'.
+        Constraints:
+            You must use only a single statement (one line) to convert 'int_value' and assign it to 'hex_value'
+            'int_value' must be converted using a built-in function
+
+[7.]    Using built-in functions convert 'int_value' from question 4 into a character.
+        Assign the binary value to a variable named 'char_value'.
+        Print out the value of 'char_value'.
+        Constraints:
+            You must use only a single statement (one line) to convert 'int_value' and assign it to 'char_value'
+            'int_value' must be converted using a built-in function
+
+[8.] compound concatenate
+
+[9.] compound duplicate
+
+[10.] string equality comparision
+
+[11.] return a single character
+
+[12.] slicing (substring)
+
+[13.] length
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'Strings'
+
+'1. Define a variable called "char" and set it to any character.'
+
+
+'2. Print three words on seperate lines using a single print statment and newline characters.'
+
+
+r'3. Print the absolute path to your "Desktop" directory. (Example: C:\Users\USERNAME\Desktop)'
+
+
+'4. Print out "I can use the escape character" including the quotes.'
+
+
+# You can change the value of 'letter' to test your code
+letter = "m"
+########################################################
+'''
+For 5 - 8 You must use the built in functions to convert. 
+          Assigning literal values will not be counted.
+'''
+
+'5. Define a variable called "decimal_value", and set its value to the decimal value of "letter".'
+
+
+'6. Define a variable called "hex_value", and set its value to the hexadecimal value of "letter". '
+
+
+'7. Define a variable called "bin_value", and set its value to the binary value of "letter".'
+
+
+'8. Define a variabled called "char_value", and set its value to the character value of 65.'
+
+
+'9 Print out a string literal that spans multiple lines without using the newline character.'
+
+
+'10. Print out the type of the following data: "In the south it is pronounced strang.."'
+
+
+#You can change the value of first, second, and third to test your code.
+first = "Application "; second = "Programming " ; third = "Interface"
+#######################################################################
+
+
+'11. Concatenate and print "first", "second", and "third".'
+
+'12 Duplicate "second", 5 times. Print the result.'
+
+
+#You can change the value of first, second, and third to test your code.
+char_1 = "n" ; char_2 = "a" ; char_3 = "o"
+#######################################################################
+
+'13. Print an expression that checks if "char_1" is equal to "n".'
+
+'14. Print an expression that checks if "char_1" is not equal to "char_2".'
+
+
+'15. Print an expression that checks if "char_3" is lexicographically greater than "c".'
+
+
+'16. Print an expression that checks if "dog" is lexicographically smaller than "cat".'
+
+
+#You can change the value of text to test your code
+#text must store a string of >= 30 characters
+text = "Strings in Python are indexed."
+###################################################
+
+'17. Print the 4th character in "text".'
+
+'18. Print the 3rd to last character in "text" using negative indexing.'
+
+'19. Print any of the space characters in "text".'
+
+'20. Print a substring of "text" that contains only the first 7 characters.'
+
+'21. Print a substring of "text" that contains only the last 8 characters.'
+
+'22. Print a substring of "text" that contains only characters 11-17.'
+
+'23. Using negative indexing print a substring of "text" that contains only characters -8 through -4.'
+
+'24. Print the statement to determine number of characters in "text".'
+
+'25. Print out the expression to determine the last index of "text".'
