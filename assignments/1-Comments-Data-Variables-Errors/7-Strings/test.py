@@ -1,11 +1,11 @@
-identity='ff4d806c991a6120b5fef64186624bcca6224b38c138de9889f4a1809d4dd1dff712eff077c6c6bded06701982fc24c5f72a86e8a31bb312affd888dd4fe295f'
+identity='5312f8dddd76589df6a2daa801d781dfae207d8e27b223b10eac16e082196f039afb89550fc568d1a63f0514009b9b6c7188d710ba3c4f3e9d07a2df9dcbf0bd'
 import subprocess,os,sys,hashlib
 from datetime import datetime
 from getpass import getuser
 from pathlib import Path
 import re
 
-assignment = "6-Simple-Functions-and-Calls"
+assignment = "7-Strings"
 inputval = "2"
 path = Path(__file__).parent
 thispath = Path(__file__)
@@ -274,7 +274,7 @@ def maketests(m=None):
         assert isinstance(getattr(m,"alphabet"),str), f"{n} 'alphabet' should reference a string, but it does not."
         assert getattr(m,"alphabet") == "ABCDEFGHIJKLMNOPQRSTUVWXYZ", f"{n} 'alphabet' should reference \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\""
         ismatch(
-            r"print\(\s*alphabet\[\s*11\s*:\s*18\s*\]\s*\)",
+            r"print\(\s*alphabet\[\s*10\s*:\s*17\s*\]\s*\)",
             f"{n} Did you use subscripting []? Did you use slicing [:]? Did you use the  correct positive indexes? What number do indexes start with? Did you print?"
         ) 
 
