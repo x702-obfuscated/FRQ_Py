@@ -27,3 +27,18 @@
 
 
 
+Define a variable named 'upper_alpha' and assign it to reference a list of all the uppercase characters in the alphabet.
+Define a variable named 'lower_alpha' and assign it to reference a list of all the lowercase characters in the alphabet.  
+Define a variable named 'numerals' and assign it to reference a list of the integers 0 to 9
+
+[.]     Define a variable named 'character' and assign it any character of your choice. 
+        Print each of the following expressions: 
+            check if the value of 'character' is in 'upper_alpha'
+            check if the value of 'character' is in 'lower_alpha'
+            check if the value of 'character' is in 'numerals'
+        
+        Constraints:
+            The expression must be directly printed, and not assigned to a variable
+
+
+[.]     

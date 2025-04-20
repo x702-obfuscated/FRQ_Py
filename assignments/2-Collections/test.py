@@ -14,11 +14,13 @@ filecontent = ""
 numpassed = 0
 numfailed = 0
 num = 0
+qnum = 0
 report = []
 alltests = []
 
-def assessvar(module,qnum,name,value=None,dtype=None,size=None,size_operator = "=="):
-
+def assessvar(module,name,value=None,dtype=None,size=None,size_operator = "=="):
+    global qnum
+    
     assert hasattr(module,name), f"Q{qnum}: Did you define a variable named '{name}'?"
     var = getattr(module,name)
     if dtype:
@@ -53,9 +55,11 @@ def assessvar(module,qnum,name,value=None,dtype=None,size=None,size_operator = "
             var = f"{var}"
         assert var == value, f"Q{qnum}: Expected '{name}' to reference {value}, but instead it references {var}."
 
-def assessfun(module,qnum,name,*params,value=None,dtype=None):
-    assert hasattr(m,name), f"Q{qnum}: Did you define a function named '{name}'? Did you use the 'def' keyword? Did you use parenthesis?"
-    fun = getattr(m,name)
+def assessfun(module,name,*params,value=None,dtype=None):
+    global qnum
+
+    assert hasattr(module,name), f"Q{qnum}: Did you define a function named '{name}'? Did you use the 'def' keyword? Did you use parenthesis?"
+    fun = getattr(module,name)
     assert callable(fun), f"Q{qnum}: Expected '{name}' to reference a function, but instead it references {fun} ." 
 
     if value or dtype:
@@ -79,7 +83,7 @@ def ismatch(pattern,feedback):
 
 
 def maketests(m=None):
-    qnum = 0
+    
 
 
 
