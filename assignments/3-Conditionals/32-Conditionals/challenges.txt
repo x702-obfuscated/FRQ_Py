@@ -1,0 +1,126 @@
+[ All assignment code should be written inside of the 'main.py' file.        ]
+[ In VS Code use CTRL + J to open the terminal.                              ]
+[ In the terminal type 'python main.py' to execute your code.                ]
+[ In the terminal type 'python test.py' to test your code for correctness.   ]
+
+[ Lists : Challenges                                               ]
+
+"A constraint is a rule that tells you what you can or cannot do when solving a problem."
+"A requirement is a something that must be handled by the function."
+"Hard coding is the process of manually programming something that could be written programmatically."
+
+[1.]    Define a function named 'is_True' with a parameter named 'var'.
+        The function should use a conditional to determine if 'var' is equal to True.
+        If it is the function returns True
+        If it is NOT the function returns False
+
+        Constraints:
+            Your function must work for any value of 'var'
+            You must use a conditional in the function definition.
+
+
+[2.]    Define a function named 'is_positive' with a parameter named 'num'.
+        Inside the function write a conditional that returns if 'num' is a positive or negative number.
+        If 'num' is positive return "POSITIVE"
+        If 'num" is negative return "NEGATIVE"
+
+
+
+[3.]    Define a function named 'is_even' with a parameter named 'number'.
+        Inside the definition write a conditional that returns "EVEN" if 'number' is even, and "ODD" if 'number' is odd.
+        If 'number' is even return "EVEN"
+        If 'number' is odd return "ODD"
+
+
+
+[4.]    Define a function named 'is_divisible' with 2 parameters 'dividend' and 'divisor'.
+        In the function definition write a conditional below that returns if the 'dividend' is divisible by the 'divisor'. 
+        If 'dividend' is divisible by 'divisor' return a concatenated string --> 'dividend' + " is divisible by " +  'divisor'  
+        If 'dividend' is NOT divisible by 'divisor' return a concatenated string --> 'dividend' + " is NOT divisible by " + 'divisor' 
+
+        Constraints:
+            The parameters must be written in the order they were provided in this question.
+            
+
+[5.]    Define a function named 'stoplight' with a parameter named 'color'.
+        'color' will represent one of 3 possible values --> "red", "yellow", or "green".
+        In the function definition write a conditional:
+        If 'color' is "green" return "GO",
+        If 'color' is "yellow" return "CAUTION",
+        If 'color' is "red" return "STOP"
+
+
+
+
+
+
+
+def is_bedtime(time):
+    '''6. The variable 'time' in the function definition above represents any hour on a 24 hour clock (0-24).
+
+    Write a conditional below that prints out "BEDTIME" if 'time' is after 22, or before 8 inclusive, otherwise
+    it prints out "WAKEUP". 
+
+    You must indent 4 spaces to write your code for this question. '''
+
+
+
+
+
+
+def is_vowel(letter):
+    '''7. The variable 'letter' in the function definition above represents any lowercase alphabetical character. (a-z)
+
+    Write a conditional below that prints out "VOWEL" if the letter is a vowel. Include the character "y" as a vowel.
+    If the letter is not a vowel print out "CONSONANT".
+
+    You must indent 4 spaces to write your code for this question. '''
+
+
+
+
+
+
+
+def print_largest(a,b,c):
+    '''8. The variables 'a', 'b', and 'c' represent any integer.
+
+    Write a conditional below to determine which of the variables stores the largest value. 
+    If 'a' is the largest print "a is the largest"
+    If 'b' is the largest print "b is the largest"
+    if 'c' is the largest print "c is the largest"
+    
+    You must indent 4 spaces to write your code for this question. '''
+
+
+
+
+def print_quadrant(x,y):
+    '''9. The variable 'x' represents any whole number x-coordinate. The variable 'y' represents any whole number y-coordinate.
+    
+    Write a conditional that prints out the quadrant that the (x,y) pair appears
+    If 'x' is positive and 'y' is positive print out "QI"
+    If 'x' is negative and 'y" is positive print out "QII"
+    If 'x' is negative and 'y' is negative print out "QIII"
+    If 'x' is positive and 'y" is negative print out "QIV"
+    Otherwise print "On an axis or at the origin."
+
+    You must indent 4 spaces to write your code for this question.  '''
+
+
+
+
+
+
+def calculate(a, b, operation):
+    '''10. The variables 'a' and 'b' represent any integer value. 
+    The variable 'operation' represents one of 4 string characters: "+", "-", "*","/"
+
+    If 'operation' is "+" print the sum of 'a' and 'b'
+    If 'operation' is "-" print the different of 'a' and 'b'
+    If 'operation' is "/" print the quotient of 'a' and 'b'
+        If 'b' is 0 print "undefined"
+    If 'operation' is "*" print the product of 'a' and 'b'
+    If 'operation' is not one of the 4  print "SymbolError: Operation Not Supported"
+
+    You must indent 4 spaces to write your code for this question.'''
