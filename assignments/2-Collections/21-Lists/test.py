@@ -1,4 +1,4 @@
-identity='04d90e56dfc979baea31f01b9aef0a33a37bf1625f1d9d495ffd5e32a7e0e358f79b477453ddef30ca33f9f251153540c0e06bd782596afb2bc845e95a73a42f'
+identity='a6ca65064cf38c0ef1fd861248540484390976e5f370510e79adb3b93d46170cbc758eba47078a5819ec645416593b7466471150c0bb526ae78e7a4a9bd750ba'
 import subprocess,os,sys,hashlib
 from datetime import datetime
 from getpass import getuser
@@ -109,7 +109,7 @@ def maketests(m=None):
         global qnum
         qnum += 1
         assessvar(m,"upper_alpha",list(ascii_uppercase),list)
-        assessvar(m,"lower_case",list(ascii_lowercase),list)
+        assessvar(m,"lower_alpha",list(ascii_lowercase),list)
         assessvar(m,"numerals", [int(x) for x in list(digits)],list)
 
         tvals = [
@@ -149,10 +149,10 @@ def maketests(m=None):
         global qnum
         qnum += 1
         assessvar(m,"upper_alpha",list(ascii_uppercase),list)
-        assessvar(m,"lower_case",list(ascii_lowercase),list)
+        assessvar(m,"lower_alpha",list(ascii_lowercase),list)
         assessvar(m,"numerals", [int(x) for x in list(digits)],list)
 
-        joined = getattr("upper_alpha") + getattr("lower_alpha") + getattr("numerals")
+        joined = getattr(m,"upper_alpha") + getattr(m,"lower_alpha") + getattr(m,"numerals")
         assessvar(m,"alphanumeric",joined, list)
 
     @test()
@@ -174,7 +174,7 @@ def maketests(m=None):
         global qnum
         qnum += 1
         assessvar(m,"upper_alpha",list(ascii_uppercase),list)
-        assessvar(m,"lower_case",list(ascii_lowercase),list)
+        assessvar(m,"lower_alpha",list(ascii_lowercase),list)
         assessvar(m,"numerals", [int(x) for x in list(digits)],list)
 
         grouped = getattr(m,"upper_alpha") + getattr(m,"lower_alpha") + getattr(m,"numerals")
@@ -195,7 +195,7 @@ def maketests(m=None):
         assessvar(m,"zeros",dtype=list)
         assert getattr(m,"zeros") == [0]* 1000, f"Q{qnum}: 'zeros' does not match the expected value."
         ismatch(
-            r"zeros\s*\=\s*[0]\s*1000",
+            r"zeros\s*\=\s*\[0\]\s*\*\s*1000",
             f"Did you create a list with single 0 inside? Did you multiply? Did you assign the result to 'zeros'?"
         )
 
@@ -236,23 +236,23 @@ def maketests(m=None):
         assessvar(m,"alphanumeric",dtype=list)
 
         ismatch(
-            r"print\(\s*alphanumeric\[\s*\:\s*26\s*\])",
+            r"print\(\s*alphanumeric\[\s*\:\s*26\s*\]\)",
             f"Did you print the first 26 characters? What number do indexes start at? What is different about stop indexes? What are the default values?"
         )
         ismatch(
-            r"print\(\s*alphanumeric\[\s*\-10\s*:\s*\])",
+            r"print\(\s*alphanumeric\[\s*\-10\s*:\s*\]\)",
             f"Did you print the last 10 characters? What number do indexes start at? What is different about stop indexes? What are the default values?"
         )
         ismatch(
-            r"print\(\s*alphanumeric\[\s*26\s*:\s*52\])",
+            r"print\(\s*alphanumeric\[\s*26\s*:\s*52\]\)",
             f"Did you print the 27th through 52nd characters? What number do indexes start at? What is different about stop indexes? What are the default values?"
         )
         ismatch(
-            r"print\(\s*alphanumeric\[\s*:\s*:\s*3\s*\])",
+            r"print\(\s*alphanumeric\[\s*:\s*:\s*3\s*\]\)",
             f"Did you print every 3rd character? What number do indexes start at? What is different about stop indexes? What are the default values?"
         )
         ismatch(
-            r"print\(\s*alphanumeric\[\s*:\s*:\s*-1\s*\])",
+            r"print\(\s*alphanumeric\[\s*:\s*:\s*-1\s*\]\)",
             f"Did you print the whole list in reverse? What number do indexes start at? What is different about stop indexes? What are the default values?"
         )
 

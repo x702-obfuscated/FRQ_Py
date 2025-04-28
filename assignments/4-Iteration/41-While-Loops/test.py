@@ -1,11 +1,11 @@
-identity='4b3525b461dbab2cb5b0b6ae73e1895d4ccf5bd65585aad862344316fb47e79e8a22fc49a99449a2271ce0382681609491cca827509f62a71497a7474e2f8300'
+identity='be6445da6dd45a81deb20c41b8ac793571adffa23d3c6a8d5a49902518b394804a4907c0556c861b2ce87838d94dd0179339458dd626b7c54f69c1c3615f7022'
 import subprocess,os,sys,hashlib
 from datetime import datetime
 from getpass import getuser
 from pathlib import Path
-import re
+import re,sys,io
 
-assignment = "32-Conditionals"
+assignment = "41-While-Loops"
 inputval = "2"
 path = Path(__file__).parent
 thispath = Path(__file__)
@@ -55,7 +55,11 @@ def assessvar(module,name,value=None,dtype=None,size=None,size_operator = "=="):
             var = f"{var}"
         assert var == value, f"Q{qnum}: Expected '{name}' to reference {value}, but instead it references {var}."
 
-def assessfun(module,name,*args,value=None,dtype=None):
+def assessfun(
+    module,name,*args:tuple,
+    returnval=None,outval=None,
+    returntype=None
+):
     global qnum
 
     assert hasattr(module,name), f"Q{qnum}: Did you define a function named '{name}'? Did you use the 'def' keyword? Did you use parenthesis?"
@@ -75,9 +79,9 @@ def assessfun(module,name,*args,value=None,dtype=None):
             else:
                 arg_str += f"{arg},"
 
-    if value or dtype:
-        if isinstance(value, str):
-            value = f"\"{value}\""
+    if returnval is not None or returntype is not None:
+        if isinstance(returnval, str):
+            returnval = f"\"{returnval}\""
         try: 
             result = fun(*args)
             if isinstance(result,str):
@@ -90,10 +94,36 @@ def assessfun(module,name,*args,value=None,dtype=None):
         except Exception as e:
             raise AssertionError(f"Q{qnum}: {name}({arg_str}) was called. But a runtime error occured and you need to fix your code --> {e}\nTry copying {name}({arg_str}) into your code and running it.")
 
-        if dtype:
-            assert isinstance(result,dtype), f"Q{qnum}: Expected '{name}' to store a {dtype} type value, but instead it references a {type(result)} type value."
-        if value:
-            assert result == value, f"Q{qnum}: {name}({arg_str}) was called.\nThe test expected a result of: {value} :, but got: {result} :instead."
+        
+        if returntype is not None:
+            assert isinstance(result,returntype), f"Q{qnum}: Expected '{name}' to store a {returntype} type value, but instead it references a {type(result)} type value."
+        if returnval is not None:
+            assert result == returnval, f"Q{qnum}: {name}({arg_str}) was called.\nThe test expected a result of: {returnval} :, but got: {result} :instead."
+
+    if outval is not None:
+        assert hasattr(module,name), f"'{name}' function definition not found. Did you define '{name}'?" #strip
+
+
+        try:
+            fun(*args) 
+        except TypeError as e:
+            if "positional arguments" in str(e) and "were given" in str(e):
+                raise AssertionError(f"Q{qnum}: Expected '{name}' to have {len(args)} parameters, but it does not. How many parameters are there in the parenthesis ()?")
+            else:
+                raise AssertionError(f"Q{qnum}: {name}({arg_str}) was called. But a runtime error occured and you need to fix your code --> {e}\nTry copying {name}({arg_str}) into your code and running it.")
+        except Exception as e:
+            raise AssertionError(f"Q{qnum}: {name}({arg_str}) was called. But a runtime error occured and you need to fix your code --> {e}\nTry copying {name}({arg_str}) into your code and running it.")
+        
+        captured_output = io.StringIO() 
+        sys.stdout = captured_output 
+        fun(*args)
+        sys.stdout = sys.__stdout__ 
+
+        
+        assert captured_output.getvalue().strip() == str(outval).strip(), \
+        f"{name}({arg_str}) was called.\nThe test expected a result of \"{outval}\" , but got \"{captured_output.getvalue()}\" instead."
+
+
 
 def ismatch(pattern,feedback):
     global filecontent,qnum
@@ -106,43 +136,62 @@ def maketests(m=None):
     @test()
     def t1():
         global qnum
-        qnum += 1
-        
+        qnum += 1 
+
         tests = [
-            (True, True),
-            (False, False),
-            (1, True),
-            (0, False),
-            ("True", True),
-            (None, False),
-            ([], False),
-            ([True], True),
-            (42, False),
-            (-1, False)
+            (1, 10, 2, "1 3 5 7 9 "),
+            (0, 5, 1, "0 1 2 3 4 5 "),
+            (3, 18, 3, "3 6 9 12 15 18 "),
+            (10, 20, 5, "10 15 20 "),
+            (1, 5, 1, "1 2 3 4 5 "),
+            (0, 10, 3, "0 3 6 9 "),
+            (10, 20, 4, "10 14 18 "),
+            (5, 5, 1, "5 "),
+            (1, 9, 2, "1 3 5 7 9 "),
+            (0, 4, 2, "0 2 4 "),
+            (-5, 5, 3, "-5 -2 1 4 "),
+            (-10, -1, 2, "-10 -8 -6 -4 -2 "),
+            (-20, -10, 3, "-20 -17 -14 -11 "),
+            (-5, 5, 1, "-5 -4 -3 -2 -1 0 1 2 3 4 5 "),
+            (-1, 4, 2, "-1 1 3 "),
+            (-10, 10, 5, "-10 -5 0 5 10 "),
+            (-15, -5, 4, "-15 -11 -7 "),
+            (-30, -10, 10, "-30 -20 -10 "),
+            (-6, 2, 2, "-6 -4 -2 0 2 "),
+            (-9, 1, 3, "-9 -6 -3 0 ")
         ]
+
         for e in tests:
-            assessfun(m,"is_True",e[0],value=e[1])
-    
+            assessfun(m,"upcount",*e[:3],outval=e[3])
+
     @test()
     def t2():
         global qnum
-        qnum += 1
+        qnum += 1 
 
         tests = [
-            (10, "POSITIVE"),
-            (-5, "NEGATIVE"),
-            (1, "POSITIVE"),
-            (-1, "NEGATIVE"),
-            (1000, "POSITIVE"),
-            (-1000, "NEGATIVE"),
-            (0.1, "POSITIVE"),
-            (-0.1, "NEGATIVE"),
-            (999999, "POSITIVE"),
-            (-999999, "NEGATIVE"),
-            (0,"ZERO")
+            (10, 1, 2, "10 8 6 4 2 "),
+            (5, 0, 1, "5 4 3 2 1 0 "),
+            (18, 3, 3, "18 15 12 9 6 3 "),
+            (20, 10, 5, "20 15 10 "),
+            (5, 1, 1, "5 4 3 2 1 "),
+            (10, 0, 3, "10 7 4 1 "),
+            (20, 10, 4, "20 16 12 "),
+            (5, 5, 1, "5 "),
+            (9, 1, 2, "9 7 5 3 1 "),
+            (4, 0, 2, "4 2 0 "),
+            (5, -5, 2, "5 3 1 -1 -3 -5 "),
+            (10, -10, 4, "10 6 2 -2 -6 -10 "),
+            (3, -6, 2, "3 1 -1 -3 -5 "),
+            (0, -5, 1, "0 -1 -2 -3 -4 -5 "),
+            (10, -1, 3, "10 7 4 1 "),
+            (6, -3, 2, "6 4 2 0 -2 "),
+            (10, 0, 2, "10 8 6 4 2 0 ")
         ]
+
         for e in tests:
-            assessfun(m,"get_sign",e[0],value=e[1])
+            assessfun(m,"downcount",*e[:3],outval=e[3])
+
 
     @test()
     def t3():
@@ -150,20 +199,21 @@ def maketests(m=None):
         qnum += 1
 
         tests = [
-            (2, "EVEN"),
-            (3, "ODD"),
-            (0, "EVEN"),
-            (-2, "EVEN"),
-            (-3, "ODD"),
-            (100, "EVEN"),
-            (101, "ODD"),
-            (99998, "EVEN"),
-            (99999, "ODD"),
-            (-100000, "EVEN")
+            ([1, 2, 3, 4, 5], "1 3 5 "),
+            ([10, 12, 14, 16], ""),
+            ([5, 7, 9, 11], "5 7 9 11 "),
+            ([0, 2, 4, 6], ""),
+            ([1], "1 "),
+            ([2], ""),
+            ([], ""),
+            ([0, 1, 2, 3, 4, 5, 6, 7], "1 3 5 7 "),
+            ([-1, -2, -3, -4], "-1 -3 "),
+            ([10, 21, 34, 57, 60], "21 57 ")
         ]
 
         for e in tests:
-            assessfun(m,"is_even",e[0],value=e[1])
+            assessfun(m,"onlyodds",e[0],outval=e[1])
+
 
     @test()
     def t4():
@@ -171,22 +221,20 @@ def maketests(m=None):
         qnum += 1
 
         tests = [
-            (10, 2, "10 is divisible by 2"),
-            (10, 3, "10 is NOT divisible by 3"),
-            (15, 5, "15 is divisible by 5"),
-            (17, 4, "17 is NOT divisible by 4"),
-            (0, 1, "0 is divisible by 1"),
-            (9, 3, "9 is divisible by 3"),
-            (8, 2, "8 is divisible by 2"),
-            (7, 2, "7 is NOT divisible by 2"),
-            (100, 25, "100 is divisible by 25"),
-            (99, 10, "99 is NOT divisible by 10"),
-            (0,0,"Division by 0 is UNDEFINED")
-        ] 
-        
-        
+            ([1, 2, 3, 4, 5], 15),
+            ([10, -5, 3], 8),
+            ([0, 0, 0, 0], 0),
+            ([100, 200, 300], 600),
+            ([-1, -2, -3, -4], -10),
+            ([5], 5),
+            ([], 0),
+            ([1, -1, 1, -1], 0),
+            ([7, 8, 9], 24),
+            ([2, 3, 10, 1], 16)
+        ]
+
         for e in tests:
-            assessfun(m,"is_divisible",e[0],e[1],value=e[2])
+            assessfun(m,"total",e[0],returnval=e[1])
 
     @test()
     def t5():
@@ -194,145 +242,47 @@ def maketests(m=None):
         qnum += 1
 
         tests = [
-            ("green", "GO"),
-            ("yellow", "CAUTION"),
-            ("red", "STOP"),
-            ("blue", "ERROR"),
-            ("", "ERROR"),
-            (None, "ERROR"),
-            (123, "ERROR"),
-            ("purple", "ERROR"),
-            ("orange", "ERROR"),
-            ("black", "ERROR")
+            ("hello", 2),
+            ("world", 1),
+            ("aeiou", 5),
+            ("", 0),
+            ("AEIOU", 5),
+            ("programming", 3),
+            ("Python", 1),
+            ("count the vowels", 5),
+            ("rhythm", 0),
+            ("supercalifragilisticexpialidocious", 16),
+            ("pneumonoultramicroscopicsilicovolcanoconiosis", 20),
+            ("HELLO", 2),
+            ("WORLD", 1),
+            ("AEIOUaeiou", 10)
         ]
 
+
         for e in tests:
-            # if isinstance(e[0],str):
-            #     assessfun(m,"stoplight",*e[0],value=e[1])
-            # else:
-            assessfun(m,"stoplight",e[0],value=e[1])
+            assessfun(m,"num_vowels",e[0],returnval=e[1])
+
 
     @test()
     def t6():
         global qnum
         qnum += 1
-
-        tests = [
-            (0, "SLEEP"),
-            (1, "SLEEP"),
-            (7, "SLEEP"),
-            (8, "WAKEUP"),
-            (9, "WAKEUP"),
-            (12, "WAKEUP"),
-            (15, "WAKEUP"),
-            (22, "WAKEUP"),
-            (23, "SLEEP"),
-            (6, "SLEEP")
-        ]
-
-        for e in tests:
-            assessfun(m,"alarm",e[0],value=e[1])
-
-    @test()
-    def t7():
-        global qnum
-        qnum += 1
-
-        tests = [
-            ('a', "VOWEL"),
-            ('e', "VOWEL"),
-            ('i', "VOWEL"),
-            ('o', "VOWEL"),
-            ('u', "VOWEL"),
-            ('b', "CONSONANT"),
-            ('c', "CONSONANT"),
-            ('d', "CONSONANT"),
-            ('z', "CONSONANT"),
-            ('y', "CONSONANT")
-        ]
-
-        for e in tests:
-            assessfun(m,"is_vowel",e[0],value=e[1])
-
-    @test()
-    def t8():
-        global qnum
-        qnum += 1
-
-        tests = [
-            (3, 5, 1, 5),
-            (1, 3, 5, 5),
-            (7, 7, 7, 7),
-            (10, 5, 5, 10),
-            (0, 0, 0, 0),
-            (10, 10, 5, 10),
-            (-1, -5, -3, -1),
-            (2, 2, 2, 2),
-            (8, 4, 6, 8),
-            (4, 9, 7, 9)
-        ]
-
-        for e in tests:
-            assessfun(m,"get_max",*e[0:3],value=e[3])
-
-    @test()
-    def t9():
-        global qnum
-        qnum += 1
-        tests = [
-            (0, 0, "ORIGIN"),
-            (0, 5, "X-AXIS"),
-            (5, 0, "Y-AXIS"),
-            (3, 2, "QI"),
-            (-3, 2, "QII"),
-            (-3, -2, "QIII"),
-            (3, -2, "QIV"),
-            (0, -5, "X-AXIS"),
-            (4, 0, "Y-AXIS"),
-            (-5, 0, "Y-AXIS")
-        ]
-        for e in tests:
-            assessfun(m,"get_quadrant",*e[0:2],value=e[2])
-
-    @test()
-    def t10():
-        global qnum
-        qnum += 1
-        tests = [
-            (3, 5, "+", 8),
-            (10, 2, "-", 8),
-            (6, 3, "*", 18),
-            (10, 2, "/", 5),
-            (10, 0, "/", "UNDEFINED"),
-            (3, 5, "/", 0.6),
-            (5, 2, "?", "Operation Not Supported"),
-            (0, 0, "+", 0),
-            (7, 3, "-", 4),
-            (-2, 5, "*", -10),
-            (8, 2, "/", 4)
-        ]
-        for e in tests:
-            assessfun(m,"calculate",*e[0:3],value=e[3])
-    
-
-    @test()
-    def t11():
-        matches = re.findall(r"if",filecontent)
-        if not len(matches) >= 10:
-            raise AssertionError("Expected an if statement for each function. Did you use and if statment in each question?")
-
+        matches = re.findall(r"while", filecontent)
+        if not len(matches) >= 5:
+            raise AssertionError(f"Expected a while loop for each question. Did you use a while loop for each question?")
     alltests.append(t1)
     alltests.append(t2)
     alltests.append(t3)
     alltests.append(t4)
     alltests.append(t5)
     alltests.append(t6)
-    alltests.append(t7)
-    alltests.append(t8)
-    alltests.append(t9)
-    alltests.append(t10)
-    alltests.append(t11)
-
+    # alltests.append(t7)
+    # alltests.append(t8)
+    # alltests.append(t9)
+    # alltests.append(t10)
+    # alltests.append(t11)
+    # alltests.append(t12)
+    # alltests.append(t13)
 
 
 def checkintegrity():

@@ -3,8 +3,4 @@
 [ In the terminal type 'python main.py' to execute your code.                ]
 [ In the terminal type 'python test.py' to test your code for correctness.   ]
 
-[ Syntax : Challenges                                  ]
-
-[1.]    Write a single line comment that includes your full name.
-
-
+Questions are linked on Google Classroom for your convenience

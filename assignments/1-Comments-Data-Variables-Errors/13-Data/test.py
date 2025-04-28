@@ -1,10 +1,11 @@
-identity='58c820bb547500d7fdb527402545b4dea00049711265f3e68a76ae207c64311f8892677124a8af8faf96e3543d4cc2a580b2df0004797f80f89a6411e4eb4cf7'
+identity='6e4fcc319028976fa712765410e3b6f66a2473334328b438855afb8655b9d9977457fe70f7b25a28321d04a798814be4b25f15aa1be1dde598ef50e0b9e5ed42'
 import subprocess,os,sys,hashlib
 from datetime import datetime
 from getpass import getuser
 from pathlib import Path
 import re
 
+assignment = "13-Data"
 path = Path(__file__).parent
 thispath = Path(__file__)
 filepath = "main.py"
@@ -17,71 +18,73 @@ alltests = []
 
 def maketests():
     global filecontent
-    
-    # @test()
-    # def tq1():
-    #     # [1.]    Write a single line comment that includes your full name.
-    #     assert "#" in filecontent, "A single line comment was expect, but not found. Did you use the right symbol?"
 
-    # @test()
-    # def tq2():
-    #     # [2.]    Write a multi-line comment with your name, class hour, and graduating class on seperate lines.
-    #     assert re.search(r"(?:'''|\"\"\")(.*?)(?:'''|\"\"\")",filecontent,re.DOTALL), "A multi line comment was expected, but not found. Did you use the correct symbol?"
+    @test()
+    def tq1():
+        # [1.]    Write a Python code statement that represents nothing or having no value.
+        assert re.search(r"(?<![\"'])None",filecontent), "Expected a null value, but was not found. What data type represents 'Nothing' or 'Null'."
 
-    # @test()
-    # def tq3():
-    #     # [3.]    Write a Python code statement that outputs "Hello World!" to the console. 
-    #     #         The output text must match the exact text in quotes. 
-    #     assert re.search(r"print\(\s*[\"']Hello World![\"']\s*\)",filecontent), \
-    #         "A print() call containing 'Hello World!' was expected, but not found. Does your text match the exact text in quotes?"
-    
-    # @test()
-    # def tq4():
-    #     # [4.]    Write a Python code statement that ONLY accepts user input.
-    #     assert re.search(r"(?<=\n)input\(\s*\)",filecontent), "An input() call was expected, but not found. Did you call input() with nothing in the parenthesis?"
+    @test()
+    def tq2():
+        # [2.]    Write a Python code statement for the 2 possible boolean data values.
+        assert re.search(r"(?<![\"'])True",filecontent), "Expected a true value, but was not found. How do you represent true in Python?"
+        assert re.search(r"(?<![\"'])False",filecontent), "Expected a false value, but was not found. How do you represent false in Python?"
     
 
-    # @test()
-    # def tq5():
-    #     # [5.]    Write a Python code statement that prompts the user with "Enter Your Name". 
-    #     #         The prompt must match the exact text in quotes. 
-    #     assert re.search(r"input\(\s*[\"']Enter\s*Your\s*Name[\"']\s*\)", filecontent), 'Expected an input() call with "Enter Your Name", but it was not found. Did you call input()? Does the text match exactly?'
-    
-    # @test()
-    # def tq6():
-    #     # [6.]    Write a Python code statement that accepts input from the user and prints it to the console in the same statement.
-    #     assert re.search(r"print\(\s*input\(\s*\)\s*\)",filecontent), 'Expected print() call containing an input() call, but it was not found.'
-    
-    # @test()
-    # def tq7():
-    #     # [7.]    Write a Python code statement that prompts the user with "Enter Your Password", then prints the password they entered to the console.
-    #     #         The prompt must match the exact text in quotes. 
-    #     assert re.search(r"print\(\s*input\(\s*[\"']Enter\s*Your\s*Password[\"']\)\s*\)",filecontent), \
-    #         'Expected print() call containing an input() call with "Enter Your Password", but it was not found. Did you call print()? input()? Does the text match exactly?'
+    @test()
+    def tq3():
+        # [3.]    Write a Python code statement that represents the number --> 100 
+        assert re.search(r"(?<![\"'])100",filecontent), "Expected an integer value of 100, but was not found. How do you represent an integer in Python?"
+  
+    @test()
+    def tq4():
+        # [4.]    Write a Python code statement that represents the number --> 3.14159  
+        assert re.search(r"(?<![\"'])3.14159",filecontent), "Expected a float value of 3.14159, but was not found. How do you represent a float in Python?"
 
-    # @test()
-    # def tq8():
-    #     # [8.]    Write a Python code statement that prints out "Username: ". Then on the next line write a code statement to accept user input and print it to the console. 
-    #     # The printed text must match the exact text in quotes. 
-    #     assert re.search(r"print\(\s*[\"']Username:\s[\"']\s*\)\s*print\(\s*input\(\s*\)\s*\)",filecontent,re.DOTALL), \
-    #         "Expected a print() call containing 'Username: '. Expected a print() call containing input() on the next line. Did you call print()? input()? Does the text match exactly?" 
+    @test()
+    def tq5():
+    #    [5.]    Write a Python code statement that represents the character --> a
+        assert re.search(r"[\"']a[\"']",filecontent), "Expected the character a, but was not found. How do you represent a character in Python?"
 
-    # @test()
-    # def tq9():
-    #     # [9.]    Write a Python code statement that prompts the user with "First Name: " and prints out their input in the same statement. 
-    #     # On the next line write a code statement the prompts the user with "Last Name: " and prints out their input input in the same statement.
-    #     # On the next line write a code statement the prompts the user with "Date of Birth: " and prints out their input input in the same statement.
-    #     # The prompt text must match the exact text in quotes.
-    #     assert re.search(r"print\(\s*[\"']First Name:\s[\"']\s*\)\s*print\(\s*input\(\s*\)\s*\)",filecontent,re.DOTALL), "Expected a print() call containing 'First Name: '. Expected a print() call containing input() on the next line. Did you call print()? input()? Does the text match exactly?"
-    #     assert re.search(r"print\(\s*[\"']Last Name:\s[\"']\s*\)\s*print\(\s*input\(\s*\)\s*\)",filecontent,re.DOTALL),"Expected a print() call containing 'Last Name: '. Expected a print() call containing input() on the next line. Did you call print()? input()? Does the text match exactly?"
-    #     assert re.search(r"print\(\s*[\"']Date of Birth:\s[\"']\s*\)\s*print\(\s*input\(\s*\)\s*\)",filecontent,re.DOTALL),"Expected a print() call containing 'Date of Birth: '. Expected a print() call containing input() on the next line. Did you call print()? input()? Does the text match exactly?"
-        
-    # @test()
-    # def tq10():
-    #     # [10.]   Write a Python code statement that prints out " 0 1 a B ! ".
-    #     # The printed text must match the exact text in quotes.
-    #     assert re.search(r"[\"']\s0\s1\sa\sB\s!\s[\"']", filecontent),"Expected a print() call containing \" 0 1 a B ! \". Did you call print? Does the text match exactly? Remember that spaces are characters."
-    
+    @test()
+    def tq6():
+    #   [6.]    Write a Python code statement that represents the text --> The quick brown fox jumps over the lazy dog. 
+        assert re.search(r"[\"']The quick brown fox jumps over the lazy dog.[\"']",filecontent), "Expected the string --> The quick brown fox jumps over the lazy dog. , but was not found. How do you represent a string in Python?"
+
+
+    @test()
+    def tq7():
+    #    [7.]    Write a Python code statement that represents the text --> 01234567890
+        assert re.search(r"[\"']01234567890[\"']", filecontent), "Expected the string --> 01234567890 , but was not found. How do you represent a string in Python?" 
+
+    @test()
+    def tq8():
+    #    [8.]    Write a Python code statement that represents a list of the following characters --> a b c
+        assert re.search(r"\[\s*[\"']a[\"']\s*,\s*[\"']b[\"']\s*,\s*[\"']c[\"']\s*\]", filecontent), "Expected a list of characters --> a b c , but was not found. How do you represent a character in Python? How do you represent a list in Python?" 
+
+    @test()
+    def tq9():
+    #    [9.]    Write a Python code statement that represents a list of the following characters --> 1 2 3
+        assert re.search(r"\[\s*[\"']1[\"']\s*,\s*[\"']2[\"']\s*,\s*[\"']3[\"']\s*\]", filecontent), "Expected a list of characters --> 1 2 3 , but was not found. How do you represent a character in Python? How do you represent a list in Python?" 
+
+    @test()
+    def tq10():
+    #    [10.]   Write a Python code statement that represents a list of the following numbers --> 4 5 6
+        assert re.search(r"\[\s*4\s*,\s*5\s*,\s*6\s*\]", filecontent), "Expected a list of integers --> 4,5,6 but was not found. How do you represent an integer in Python? How do you represent a list in Python?" 
+
+    @test()
+    def tq11():
+    #    [11.]   Write a Python code statement that prints out the type of the following data --> "3.14"
+        assert re.search(r"print\s*\(\s*type\s*\(\s*[\"']3.14[\"']\s*\)\s*\)", filecontent), "Expected print() call containing a type() call with an argument of \"3.14\" , but was not found.  What do quotes mean in Python?"
+
+
+    @test()
+    def tq12():
+    #    [12.]   Write a Python code statement that prints out the type of the following data --> 101
+        assert re.search(r"print\s*\(\s*type\s*\(\s*101\s*\)\s*\)", filecontent), "Expected print() call containing a type() call with an argument of 101 , but was not found."
+
+
+
     alltests.append(tq1)
     alltests.append(tq2)
     alltests.append(tq3)
@@ -92,21 +95,8 @@ def maketests():
     alltests.append(tq8)
     alltests.append(tq9)
     alltests.append(tq10)
-
-    # @test("a","b","c")
-    # def tq1(a):
-    #     assert 1 == 1, "One does not equal"
-    # alltests.append(tq1)
-
-    # @test()
-    # def tq2():
-    #     assert 1 == 1, "1 does not equal a"
-    # alltests.append(tq2)
-
-    # @test()
-    # def tq3():
-    #     assert "input()" in filecontent, "Expected input(), but found none."
-    # alltests.append(tq3)
+    alltests.append(tq11)
+    alltests.append(tq12)
 
 def checkintegrity():
     hasher = hashlib.sha512()
@@ -239,7 +229,7 @@ def assess():
     report.insert(0,"\n")
 
     report.insert(0,f"[ TIME: {str(datetime.now())} ]\n")
-
+    report.insert(0,f"[ ASSIGNMENT: {assignment} ]\n")
     try:
         report.insert(0,f"[ USER: {getuser().upper()} ]\n")
     except KeyError as e:

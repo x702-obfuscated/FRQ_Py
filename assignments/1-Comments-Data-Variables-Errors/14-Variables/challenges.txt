@@ -30,7 +30,7 @@
 [4.]    Assign 4 variables named 'pi', 'euler', 'phi', 'mol' to  3.14 , 2.718 , 1.618 , and 6.022E23 repectively one the same line without using semicolons(;)  
 
 
-[5.]    Define a variable named 'changeme' to the value True. Then reassign 'changme' to the value False.
+[5.]    Define a variable named 'changeme' to the value True. Then reassign 'changeme' to the value False.
 
 
 [6.]    Define a variable named 'message' and assign it the value "Hello World". Print out 'message'.

@@ -5,7 +5,7 @@ from getpass import getuser
 from pathlib import Path
 import re
 
-assignment = "6-Simple-Functions-and-Calls"
+assignment = "16-Simple-Functions-and-Calls"
 inputval = "2"
 path = Path(__file__).parent
 thispath = Path(__file__)

@@ -1,11 +1,11 @@
-identity='6e4fcc319028976fa712765410e3b6f66a2473334328b438855afb8655b9d9977457fe70f7b25a28321d04a798814be4b25f15aa1be1dde598ef50e0b9e5ed42'
+identity='d89e987626657e52cc270b3cfa9ebe33a1f4faca9674b4143d0c6616102c103c175c5fb5f4f236e6a15dc57f30fa4503eae9666c3e25045809ff1bc1beef43d1'
 import subprocess,os,sys,hashlib
 from datetime import datetime
 from getpass import getuser
 from pathlib import Path
 import re
 
-assignment = "3-Data"
+assignment = "14-Variables"
 path = Path(__file__).parent
 thispath = Path(__file__)
 filepath = "main.py"
@@ -16,87 +16,127 @@ num = 0
 report = []
 alltests = []
 
-def maketests():
+def maketests(m=None):
     global filecontent
 
-    @test()
-    def tq1():
-        # [1.]    Write a Python code statement that represents nothing or having no value.
-        assert re.search(r"(?<![\"'])None",filecontent), "Expected a null value, but was not found. What data type represents 'Nothing' or 'Null'."
+    @test(
+        ("nothing", None),
+        ("switch", True),
+        ("num", 42),
+        ("percent",0.75),
+        ("name","Alice"),
+        ("fruits",["apple","banana","cherry"]),
+        ("coordinates",(10,20)),
+        ("person", {"name":"Bob","age":30})
+    )
+    def t1(var,val):
+        assert hasattr(m,var), f"Expected a defined variable named '{var}', but was not found."
+        assert getattr(m,var) == val, f"Expected '{var}' to point to {val} , but it does not."
 
+    @test(
+        ("one","abc"),
+        ("two","abc"),
+        ("three","abc")
+    )
+    def t2(var,val):
+        assert hasattr(m,var), f"Expected a defined variable named '{var}', but was not found."
+        assert getattr(m,var) == val, f"Expected '{var}' to point to \"{val}\" , but it does not."
+        
     @test()
-    def tq2():
-        # [2.]    Write a Python code statement for the 2 possible boolean data values.
-        assert re.search(r"(?<![\"'])True",filecontent), "Expected a true value, but was not found. How do you represent true in Python?"
-        assert re.search(r"(?<![\"'])False",filecontent), "Expected a false value, but was not found. How do you represent false in Python?"
-    
-
-    @test()
-    def tq3():
-        # [3.]    Write a Python code statement that represents the number --> 100 
-        assert re.search(r"(?<![\"'])100",filecontent), "Expected an integer value of 100, but was not found. How do you represent an integer in Python?"
-  
-    @test()
-    def tq4():
-        # [4.]    Write a Python code statement that represents the number --> 3.14159  
-        assert re.search(r"(?<![\"'])3.14159",filecontent), "Expected a float value of 3.14159, but was not found. How do you represent a float in Python?"
-
-    @test()
-    def tq5():
-    #    [5.]    Write a Python code statement that represents the character --> a
-        assert re.search(r"[\"']a[\"']",filecontent), "Expected the character a, but was not found. How do you represent a character in Python?"
-
-    @test()
-    def tq6():
-    #   [6.]    Write a Python code statement that represents the text --> The quick brown fox jumps over the lazy dog. 
-        assert re.search(r"[\"']The quick brown fox jumps over the lazy dog.[\"']",filecontent), "Expected the string --> The quick brown fox jumps over the lazy dog. , but was not found. How do you represent a string in Python?"
+    def t3():
+        assert re.search(r"one\s*=\s*two\s*=\s*three\s*=\s*[\"']abc[\"']",filecontent), f"Expected variables 'one', 'two', and 'three' to be assigned on the same line to the same value without using semicolons(;) or commas(,), but was not found."
 
 
-    @test()
-    def tq7():
-    #    [7.]    Write a Python code statement that represents the text --> 01234567890
-        assert re.search(r"[\"']01234567890[\"']", filecontent), "Expected the string --> 01234567890 , but was not found. How do you represent a string in Python?" 
+    @test(
+        ("source","text"),
+        ("byte","bytes"),
+        ("machine","binary")
+    )
+    def t4(var,val):
+        assert hasattr(m,var), f"Expected a defined variable named '{var}', but was not found."
+        assert getattr(m,var) == val, f"Expected '{var}' to point to \"{val}\" , but it does not."
 
     @test()
-    def tq8():
-    #    [8.]    Write a Python code statement that represents a list of the following characters --> a b c
-        assert re.search(r"\[\s*[\"']a[\"']\s*,\s*[\"']b[\"']\s*,\s*[\"']c[\"']\s*\]", filecontent), "Expected a list of characters --> a b c , but was not found. How do you represent a character in Python? How do you represent a list in Python?" 
+    def t5():
+        assert re.search(r"source\s*=\s*[\"']text[\"']\s*;\s*byte\s*=\s*[\"']bytes[\"']\s*;\s*machine\s*=\s*[\"']binary[\"']",filecontent), f"Expected variables 'source', 'byte', and 'machine' to be assigned on the same line to the values \"text\", \"bytes\", and \"binary\" without using commas(,), but was not found."
 
-    @test()
-    def tq9():
-    #    [9.]    Write a Python code statement that represents a list of the following characters --> 1 2 3
-        assert re.search(r"\[\s*[\"']1[\"']\s*,\s*[\"']2[\"']\s*,\s*[\"']3[\"']\s*\]", filecontent), "Expected a list of characters --> 1 2 3 , but was not found. How do you represent a character in Python? How do you represent a list in Python?" 
-
-    @test()
-    def tq10():
-    #    [10.]   Write a Python code statement that represents a list of the following numbers --> 4 5 6
-        assert re.search(r"\[\s*4\s*,\s*5\s*,\s*6\s*\]", filecontent), "Expected a list of integers --> 4,5,6 but was not found. How do you represent an integer in Python? How do you represent a list in Python?" 
-
-    @test()
-    def tq11():
-    #    [11.]   Write a Python code statement that prints out the type of the following data --> "3.14"
-        assert re.search(r"print\s*\(\s*type\s*\(\s*[\"']3.14[\"']\s*\)\s*\)", filecontent), "Expected print() call containing a type() call with an argument of \"3.14\" , but was not found.  What do quotes mean in Python?"
+    @test(
+        ("pi",3.14),
+        ("euler",2.718),
+        ("phi",1.618),
+        ("mol",6.022E23)
+    )
+    def t6(var,val):
+        assert hasattr(m,var), f"Expected a defined variable named '{var}', but was not found."
+        assert getattr(m,var) == val, f"Expected '{var}' to point to \"{val}\" , but it does not."
 
 
     @test()
-    def tq12():
-    #    [12.]   Write a Python code statement that prints out the type of the following data --> 101
-        assert re.search(r"print\s*\(\s*type\s*\(\s*101\s*\)\s*\)", filecontent), "Expected print() call containing a type() call with an argument of 101 , but was not found."
+    def t7():
+        assert re.search(r"pi\s*,\s*euler\s*,\s*phi\s*,\s*mol\s*=\s*3.14\s*,\s*2.718\s*,\s*1.618\s*,\s*6.022[eE]23\s*",filecontent), f"Expected variables 'pi', 'euler', 'phi', 'mol' to  3.14 , 2.718 , 1.618 , and 6.022E23 repectively on the same line without using semicolons(;)"
+
+    @test()
+    def t8():
+        # Define a variable named 'changeme' to the value True. Then reassign 'changme' to the value False.
+        assert hasattr(m,"changeme"), f"Expected a defined variable named 'changeme', but was not found."
+        assert getattr(m,"changeme") == False, f"Expected 'changeme' to point to False, but it does not."
+        assert re.search(r"changeme\s*=\s*True",filecontent), f"Expected 'changeme' to previously be assigned to the value True, but this assignment was not found."
+
+    @test(
+        ("message","Hello World")
+    )
+    def t9(var,val):
+        assert hasattr(m,var), f"Expected a defined variable named '{var}', but was not found."
+        assert getattr(m,var) == val, f"Expected '{var}' to point to \"{val}\" , but it does not."
+        assert re.search(r"print\s*\(\s*message\s*\)",filecontent), f"Expected a print() call that prints out the value of '{var}', but was not found."
+
+    # @test(
+    #     ("this",["same",2,3]),
+    #     ("that",["same",2,3]),
+    #     ("other",["same",2,3])
+    # )
+    # def t10(var,val):
+    #     assert hasattr(m,var), f"Expected a defined variable named '{var}', but was not found."
+    #     assert getattr(m,var) == val, f"Expected '{var}' to point to \"{val}\" , but it does not."
+        
+    # @test(
+    #     ("this","that","other")
+    # )
+    # def t11(*val):
+    #     for i in range(len(val)):
+    #         assert hasattr(m,val[i]), f"Expected '{val[i]}' to be defined, but was not found."
+    #     assert getattr(m,val[0]) is getattr(m,val[1]) is getattr(m,val[2]), f"Expected '{val[0]}', '{val[1]}', and '{val[2]}' to be aliases, but they are not."
+
+    #     assert re.search(r"other\[0\]\s*=\s*[\"']same[\"']",filecontent), "Expected the statement other[0] = \"same\" in the source code, but was not found"
+
+    #     for i in range(len(val)):
+    #         assert re.search(rf"print\s*\(\s*{val[i]}\s*\)",filecontent), f"Expected a print() call with {val[i]} as an argument, but was not found."
 
 
+    @test(("this","that","other"))
+    def t10(*vars):
+        for var in vars:
+            assert hasattr(m,var), f"Expected '{var}' to be defined, but it was not found. Did you define '{var}'?"
+        
+        assert getattr(m,vars[0]) is getattr(m,vars[1]) is getattr(m,vars[2]), f"Expected 'this', 'that', and 'other to be aliases. How are aliases defined?"
+        assert getattr(m,vars[2]) == ["same",2,3], f"Expected 'other' to point to the value [\"same\",2,3] . Did you reassign the value of other[0] correctly?"
 
-    alltests.append(tq1)
-    alltests.append(tq2)
-    alltests.append(tq3)
-    alltests.append(tq4)
-    alltests.append(tq5)
-    alltests.append(tq6)
-    alltests.append(tq7)
-    alltests.append(tq8)
-    alltests.append(tq9)
-    alltests.append(tq10)
-    alltests.append(tq11)
-    alltests.append(tq12)
+        for var in vars:
+            assert re.search(rf"print\s*\(\s*{var}\s*\)",filecontent), f"Expected a print() call containing the argrument '{var}' but it was not found. Did you print out '{var}'?"
+
+
+    alltests.append(t1)
+    alltests.append(t2)
+    alltests.append(t3)
+    alltests.append(t4)
+    alltests.append(t5)
+    alltests.append(t6)
+    alltests.append(t7)
+    alltests.append(t8)
+    alltests.append(t9)
+    alltests.append(t10)
+    # alltests.append(t11)
+    # alltests.append(t12)
 
 def checkintegrity():
     hasher = hashlib.sha512()
@@ -200,7 +240,7 @@ def runtests():
             print(e)
     
     change_inputfunction()
-    maketests()
+    maketests(main)
 
     for test in alltests:
         test()
