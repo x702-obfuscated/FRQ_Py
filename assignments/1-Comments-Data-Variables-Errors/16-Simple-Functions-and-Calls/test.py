@@ -181,9 +181,9 @@ def maketests(m=None):
 
     @test()
     def t10():
-        n = 10; fun = "concatenate"; var = "joined"; p1 = "front_half"; p2 ="back_half"; a1 = "\"It means \"" ; a2 = "\"to join together.\""
+        n = 10; fun = "concatenate"; var = "joined"; p1 = "front_half"; p2 ="back_half"; a1 = "It means " ; a2 = "to join together."
         ismatch(
-            rf"{var}\s*=\s*{fun}\(\s*{a1}\s*,\s*{a2}\s*\)",
+            rf"{var}\s*=\s*{fun}\(\s*[\"']{a1}[\"']\s*,\s*[\"']{a2}[\"']\s*\)",
             f"Q{n}: Did you call '{fun}' with the arguments {a1} and {a2}? Are {a1} and {a2} inside the parenthesis and separated by a comma? "
             f"Did you assign '{var}' to the '{fun}' call?"
         )

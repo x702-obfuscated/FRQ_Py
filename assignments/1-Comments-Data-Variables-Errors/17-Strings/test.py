@@ -168,7 +168,7 @@ def maketests(m=None):
     @test()
     def t11():
         n="Q11:"
-        assert hasattr(m,"strang"), f"{n} 'stang' is not defined."
+        assert hasattr(m,"strang"), f"{n} 'strang' is not defined."
         assert isinstance(getattr(m,"strang"),str), f"{n} 'strang' should reference a string, but it does not."
         ismatch(
             r"strang\s*\*=\s*5",

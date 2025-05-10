@@ -87,7 +87,7 @@
 [15.]   Write a python input statement that:
             1. prompts the user to "Enter a number:\n"
             2. converts the input into a float
-            3. stores the integer in a variable named 'flo'
+            3. stores the float in a variable named 'flo'
             
             1-3 should all be on the same line in the same statement.
         
