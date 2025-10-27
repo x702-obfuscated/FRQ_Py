@@ -1,11 +1,11 @@
-identity='be6445da6dd45a81deb20c41b8ac793571adffa23d3c6a8d5a49902518b394804a4907c0556c861b2ce87838d94dd0179339458dd626b7c54f69c1c3615f7022'
+identity='6ffc3776cf0a63f1774899c5667d4e6d25bd9ebf35426cae11f30c0b6a36150527489b60719e410c85730d523e5eef808a8423b0ee1335a760fa68af33bef052'
 import subprocess,os,sys,hashlib
 from datetime import datetime
 from getpass import getuser
 from pathlib import Path
 import re,sys,io
 
-assignment = "41-While-Loops"
+assignment = "42-For-Loops"
 inputval = "2"
 path = Path(__file__).parent
 thispath = Path(__file__)
@@ -136,6 +136,65 @@ def maketests(m=None):
     @test()
     def t1():
         global qnum
+        qnum += 1
+
+        tests = [
+            (0, 16, 1),
+            (5, 26, 5),
+            (-10, -3, 2),
+            (-50, -11, 10),
+            (-5, 6, 1),
+            (-100, 101, 20),
+            (10, -11, -5),
+            (50, -51, -10),
+            (-3, 10, 3),
+            (20, -5, -2)
+        ]
+
+    
+        assessvar(m,"ranges",dtype=list,size=len(tests))
+
+        ranges = [range(*t) for t in tests]
+
+        for i,r in enumerate(ranges):
+            mr = m.ranges[i]
+            assert isinstance(mr,range), f"Q{qnum}: Expected ranges[{i}] to be of type <class 'range'> but instead was of type {type(mr[i])} ."
+            if(tests[i][1] < 0):
+                stop = tests[i][1] + 1
+            else:
+                stop = tests[i][1] - 1
+
+            if(mr.stop < 0):
+                stopsat = mr.stop + 1
+            else:
+                stopsat = mr.stop - 1
+
+            assert m.ranges[i] == r, f"Q{qnum}: Expected ranges[{i}] to equal a range from {tests[i][0]} to {stop} by {tests[i][2]}s. But the range starts at {mr.start}; stops at {stopsat}; steps by {mr.step} ."
+
+
+
+    @test()
+    def t2():
+        global qnum
+        qnum += 1
+
+        
+        assessvar(m,"default_step",range(50,71,1))
+        assessvar(m,"default_start_step",range(0,101,1))
+        ismatch(
+            r"range\(\s*50\s*,\s*71\s*\)",
+            "Did you use the default step parameter value?"
+        )
+
+        ismatch(
+            r"range\(\s*101\s*\)",
+            "Did you use the default step parameter value? Did you use the default start parameter value?"
+        )
+
+
+    @test()
+    def t3():
+        global qnum
         qnum += 1 
 
         tests = [
@@ -165,7 +224,7 @@ def maketests(m=None):
             assessfun(m,"upcount",*e[:3],outval=e[3])
 
     @test()
-    def t2():
+    def t4():
         global qnum
         qnum += 1 
 
@@ -194,7 +253,7 @@ def maketests(m=None):
 
 
     @test()
-    def t3():
+    def t5():
         global qnum
         qnum += 1
 
@@ -216,7 +275,7 @@ def maketests(m=None):
 
 
     @test()
-    def t4():
+    def t6():
         global qnum
         qnum += 1
 
@@ -237,7 +296,7 @@ def maketests(m=None):
             assessfun(m,"total",e[0],returnval=e[1])
 
     @test()
-    def t5():
+    def t7():
         global qnum
         qnum += 1
 
@@ -264,7 +323,40 @@ def maketests(m=None):
 
 
     @test()
-    def t6():
+    def t8():
+        global qnum 
+        qnum += 1
+        
+        tests = [
+            ([1, 2, 3, 2, 4, 2], 2, [1, 3, 5]),
+            (['a', 'b', 'a', 'c', 'a'], 'a', [0, 2, 4]),
+            ([10, 20, 30, 40], 25, []),
+            ([], 5, []),
+            ([True, False, True, True], True, [0, 2, 3]),
+            (['x', 'y', 'z'], 'y', [1]),
+            ([0, 0, 0, 0], 0, [0, 1, 2, 3]),
+            ([1.1, 2.2, 3.3, 2.2], 2.2, [1, 3]),
+            (['apple', 'banana', 'apple', 'pear'], 'pear', [3]),
+            (['cat', 'dog', 'bird'], 'fish', []),
+            ([1, 1, 2, 1, 3, 1, 4], 1, [0, 1, 3, 5]),
+            (['A', 'B', 'C', 'A', 'D'], 'A', [0, 3]),
+            (['red', 'green', 'blue', 'red'], 'green', [1]),
+            ([9, 8, 7, 9, 9], 9, [0, 3, 4]),
+            ([None, None, 1, None], None, [0, 1, 3]),
+            ([True, True, False, False], False, [2, 3]),
+            (['one', 'two', 'three', 'four'], 'five', []),
+            ([3.14, 2.71, 3.14, 1.61], 3.14, [0, 2]),
+            ([100, 200, 300, 400, 500], 100, [0]),
+            ([7, 8, 9, 10, 7, 7, 8], 8, [1, 6])
+        ]
+
+        for e in tests:
+            assessfun(m,"search",*e[:2],returnval=e[2])
+            
+
+
+    @test()
+    def t9():
         global qnum
         qnum += 1
         matches = re.findall(r"for", filecontent)
@@ -278,9 +370,9 @@ def maketests(m=None):
     alltests.append(t4)
     alltests.append(t5)
     alltests.append(t6)
-    # alltests.append(t7)
-    # alltests.append(t8)
-    # alltests.append(t9)
+    alltests.append(t7)
+    alltests.append(t8)
+    alltests.append(t9)
     # alltests.append(t10)
     # alltests.append(t11)
     # alltests.append(t12)

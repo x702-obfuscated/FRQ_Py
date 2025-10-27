@@ -1,2 +1,4 @@
-
-
+# [ All assignment code should be written inside of the 'main.py' file.        ]
+# [ In VS Code use CTRL + J to open the terminal.                              ]
+# [ In the terminal type 'python main.py' to execute your code.                ]
+# [ In the terminal type 'python test.py' to test your code for correctness.   ]
